@@ -6,6 +6,10 @@ use Livewire\Component;
 
 class CardCheckout extends Component
 {
+    protected $rules = [
+        'menu.pivot.quantity' => 'required|numeric|min:1',
+    ];
+
     public $menu;
 
     public function mount($menu)
@@ -15,7 +19,10 @@ class CardCheckout extends Component
 
     public function increment()
     {
-        $this->quantity++;
+        $this->menu->orders()->updateExistingPivot($this->menu->id, [
+            'quantity' => $this->menu->pivot->quantity + 1,
+        ]);
+        dd($this->menu->orders());
     }
 
     public function decrement()

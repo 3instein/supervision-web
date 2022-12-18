@@ -10,7 +10,8 @@ class CartController extends Controller
 {
     public function index()
     {
-        $userOrder = Order::where('customer_id', 1)->first();
+        $userOrder = Order::where('customer_id', 1)->with('menus')->first();
+
         return view('layouts.cart' , [
             'userOrder' => $userOrder,
         ]);
