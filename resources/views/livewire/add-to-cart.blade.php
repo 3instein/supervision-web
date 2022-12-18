@@ -18,7 +18,7 @@
         <button class="text-xl mr-4" type="button" wire:click.defer="decrement">-</button>
         <input class="w-10 text-xs text-center border-gray-400 rounded" type="text" value="{{ $quantity }}"
           wire:model="quantity" />
-        <button class="text-xl ml-4" type="button" wire:click.defer="increment">+</button>
+        <button class="text-xl ml-4" type="button" wire:click.defer="$emit('increment', 'getSubtotal')">+</button>
       </div>
     </div>
     <button class="w-full absolute bottom-0 left-0 bg-gray-300 py-3 font-extrabold" wire:click="addToCart"

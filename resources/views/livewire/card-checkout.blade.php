@@ -19,10 +19,10 @@
         </div>
 
         <div class="mt-4 sm:mt-0 sm:pr-9">
-          <button class="text-xl mr-4" wire:click.defer="decrement" type="button">-</button>
+          <button class="text-xl mr-4" wire:click="decrement" type="button">-</button>
           <input class="w-10 text-xs text-center border-gray-400 rounded" type="text" value="{{ $quantity }}"
             wire:model.defer="quantity" wire:change="$emit('changeQuantity')" />
-          <button class="text-xl ml-4" wire:click.defer="increment" type="button">+</button>
+          <button class="text-xl ml-4" wire:click="increment" type="button">+</button>
 
           <div class="absolute top-0 right-0">
             <button type="button" class="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500">
