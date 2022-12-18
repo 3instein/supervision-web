@@ -33,11 +33,13 @@ class AuthenticationAPIController extends Controller
         }
 
         $user = Auth::user();
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        $user->token = $token;
 
         return response()->json([
             'message' => 'Authenticated',
             'user' => $user,
-            'token' => $user->createToken('auth_token')->plainTextToken,
             'status_code' => 200,
         ]);
     }
