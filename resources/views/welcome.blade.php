@@ -19,40 +19,14 @@
     </div>
     <div class="flex justify-between flex-wrap">
       @foreach ($menus as $menu)
-        <div class="w-[164px] border mb-4 rounded-xl overflow-hidden menu-card" data-menu="{{ $menu }}">
-          <img class="h-[143px] object-cover" src="{{ $menu->image }}" alt="{{ $menu->name }}" />
-          <div class="mt-4 mx-4">
-            <p class="font-light">{{ $menu->name }}</p>
-            <p class="pb-4 text-xs font-extrabold">Rp. {{ number_format($menu->price) }}</p>
-          </div>
-        </div>
+        <livewire:card-menu :menu="$menu" />
       @endforeach
     </div>
   </div>
-  <livewire:add-to-cart :menu="$menu" />
+  <livewire:add-to-cart />
   @push('addon-script')
     <script>
       feather.replace()
-      var menuCard = document.querySelectorAll('.menu-card');
-      var overlay = document.querySelector('#overlay');
-      const formatter = new Intl.NumberFormat('de-DE');
-
-      for (let i = 0; i < menuCard.length; i++) {
-        menuCard[i].addEventListener('click', function() {
-          const {
-            id,
-            image,
-            name,
-            description,
-            price
-          } = JSON.parse(this.dataset.menu);
-          overlay.querySelector('input').value = id;
-          overlay.querySelector('img').src = image;
-          overlay.querySelector('.menu-name').innerHTML = name;
-          overlay.querySelector('.menu-description').innerHTML = description;
-          overlay.querySelector('.menu-price').innerHTML = 'Rp. ' + formatter.format(price);
-        });
-      }
     </script>
   @endpush
 </x-app-layout>
