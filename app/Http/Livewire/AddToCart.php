@@ -7,19 +7,19 @@ use App\Models\Order;
 use Livewire\Component;
 
 class AddToCart extends Component {
-
     public $menu;
-    public $selectedId;
+    public $showOverlay;
 
-    public function mount($menu) {
-        $this->menu = $menu;
+    protected $listeners = ['getMenu'];
+
+    public function getMenu($id) {
+        $this->menu = Menu::findOrFail($id);
+        $this->showOverlay = true;
     }
 
     public function addToCart() {
-        $selectedMenu = Menu::findOrFail($this->selectedId);
-        dd($selectedMenu);
-        // $orderId = Order::findOrFail(1);
-        // $orderId->menus()->attach($selectedMenu);
+        $orderId = Order::findOrFail(1);
+        $orderId->menus()->attach($this->menu->id);
     }
 
     public function render() {
