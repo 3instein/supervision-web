@@ -18,8 +18,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('/cart', function () {
     return view('layouts.cart');
+    
+//Route to Checkout Page (For testing)
+Route::get('/checkout', function () {
+    return view('checkout');
+
 });
 
 Route::get('/dashboard', function () {
