@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
 
@@ -18,12 +19,11 @@ use App\Http\Controllers\TransactionController;
 
 Route::get('/', [HomeController::class, 'index']);
 
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+
 Route::get('/scan', function () {
     return view('scan');
-});
-
-Route::get('/cart', function () {
-    return view('layouts.cart');
 });
 
 //Route to Checkout Page (For testing)
