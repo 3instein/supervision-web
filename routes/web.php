@@ -18,6 +18,10 @@ use App\Http\Controllers\TransactionController;
 
 Route::get('/', [HomeController::class, 'index']);
 
+Route::get('/scan', function () {
+    return view('scan');
+});
+
 Route::get('/cart', function () {
     return view('layouts.cart');
 });
