@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Store;
 use App\Models\Customer;
 use App\Models\Transaction;
 use Illuminate\Database\Seeder;
@@ -46,6 +47,11 @@ class DatabaseSeeder extends Seeder
             'total' => 10000,
             'payment_method' => 'Cash',
             'status' => 'Unpaid',
+        ]);
+
+        Store::create([
+            'name' => 'Test Store',
+            'address' => 'Jl. Test',
         ]);
 
         $this->call([
