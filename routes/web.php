@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
@@ -15,19 +16,15 @@ use App\Http\Controllers\TransactionController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/cart', function () {
     return view('layouts.cart');
 });
-    
+
 //Route to Checkout Page (For testing)
 Route::get('/checkout', function () {
     return view('checkout');
-
 });
 
 Route::resource('transactions', TransactionController::class);
