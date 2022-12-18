@@ -26,12 +26,6 @@ class DatabaseSeeder extends Seeder
                 'password' => Hash::make('test'),
             ]
         );
-
-        Order::create(
-            [
-                'user_id' => 1,
-            ]
-        );
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
