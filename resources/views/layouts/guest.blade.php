@@ -13,16 +13,16 @@
 
   <!-- Scripts -->
   @vite(['resources/css/app.css', 'resources/js/app.js'])
+  
 </head>
 
 <body>
   <div class="font-sans text-gray-900 antialiased">
-    <div class="container px-4">
+    <div>
       {{ $slot }}
     </div>
   </div>
-  <script src="https://unpkg.com/feather-icons"></script>
-  @stack('addon-script')
+  
 </body>
 
 </html>

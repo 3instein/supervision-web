@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
-{
+class Order extends Model {
     use HasFactory;
 
     protected $fillable = [
@@ -14,23 +13,19 @@ class Order extends Model
         'user_id',
     ];
 
-    public function customer()
-    {
+    public function customer() {
         return $this->belongsTo(Customer::class);
     }
 
-    public function user()
-    {
+    public function user() {
         return $this->belongsTo(User::class);
     }
 
-    public function transaction()
-    {
+    public function transaction() {
         return $this->hasOne(Transaction::class);
     }
 
-    public function menus(): BelongsToMany
-    {
+    public function menus() {
         return $this->belongsToMany(Menu::class);
     }
 }

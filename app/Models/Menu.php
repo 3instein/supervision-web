@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Menu extends Model
-{
+class Menu extends Model {
     use HasFactory;
 
     protected $fillable = [
@@ -16,8 +15,7 @@ class Menu extends Model
         'image',
     ];
 
-    public function orders(): BelongsToMany
-    {
+    public function orders() {
         return $this->belongsToMany(Order::class);
     }
 }
