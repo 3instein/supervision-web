@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->foreignId('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->foreignId('customer_id')->references('id')->on('customers')->after('user_id')->nullable()->onDelete('cascade');
         });
     }
 
