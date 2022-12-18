@@ -12,62 +12,62 @@
 </head>
 
 <body>
-  <div class="container card mt-3">
-    <div class="p-4">
-      <div class="text-center">
-        <h4>Receipt</h4>
-      </div>
-      <span class="mt-4"> Date & Time : </span> <span class="mt-4">10/12/2022 14:04:47</span>
-      <p class="mt-4"> Order No:1234</p>
-      <div class="row">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Item Name</th>
-              <th>Quantity</th>
-              <th class="text-center">Price</th>
-              <th class="text-center">Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Nasi Hainan</td>
-              <td>1</td>
-              <td class="text-center">Rp. 35.000</td>
-              <td class="text-center">Rp. 35.000</td>
-            </tr>
-            <tr>
-              <td>Nasi Goreng Jawa</td>
-              <td>2</td>
-              <td class="text-center">Rp. 15.000</td>
-              <td class="text-center">Rp. 30.000</td>
-            </tr>
-            <tr>
-              <td>Es Teh Hangat</td>
-              <td>1</td>
-              <td class="text-center">Rp. 5.000</td>
-              <td class="text-center">Rp. 5.000</td>
-            </tr>
-            <tr>
-              <td>Es Lemon Tea</td>
-              <td>2</td>
-              <td class="text-center">Rp. 7.000</td>
-              <td class="text-center">Rp. 14.000</td>
-            </tr>
-          </tbody>
-          <tr>
-            <td> </td>
-            <td> </td>
-            <td class="text-right text-dark">
-              <h5><strong>Sub Total: </strong></h5>
-              <p><strong>Tax (11%) : </strong></p>
-            </td>
-            <td class="text-center text-dark">
-              <h5> <strong><span id="subTotal">Rp. 84.000</strong></h5>
-              <h5> <strong><span id="taxAmount">Rp. 9.420</strong></h5>
-            </td>
-          </tr>
-          <tr>
+    <div class = "container card mt-3">
+            <div class = "p-4">
+                 <div class = "text-center">
+                    <h4>Receipt</h4>
+                 </div>
+                 <span class = "mt-4"> Date & Time : </span> <span class = "mt-4">{{ $transaction->created_at }}</span>
+                 <p class = "mt-4"> Order No: {{ $transaction->order->id }}</p>
+                 <div class = "row">
+                    <table class = "table">
+                       <thead>
+                          <tr>
+                             <th>Item Name</th>
+                             <th>Quantity</th>
+                             <th class = "text-center">Price</th>
+                             <th class = "text-center">Total</th>
+                          </tr>
+                       </thead>
+                       <tbody>
+                        <tr>
+                            <td>Nasi Hainan</td>
+                            <td>1</td>
+                            <td class = "text-center">Rp. 35.000</td>
+                            <td class = "text-center">Rp. 35.000</td>
+                         </tr>
+                         <tr>
+                            <td>Nasi Goreng Jawa</td>
+                            <td>2</td>
+                            <td class = "text-center">Rp. 15.000</td>
+                            <td class = "text-center">Rp. 30.000</td>
+                         </tr>
+                         <tr>
+                            <td>Es Teh Hangat</td>
+                            <td>1</td>
+                            <td class = "text-center">Rp. 5.000</td>
+                            <td class = "text-center">Rp. 5.000</td>
+                         </tr>
+                         <tr>
+                            <td>Es Lemon Tea</td>
+                            <td>2</td>
+                            <td class = "text-center">Rp. 7.000</td>
+                            <td class = "text-center">Rp. 14.000</td>
+                         </tr>
+                       </tbody>
+                       <tr>
+                          <td> </td>
+                          <td> </td>
+                          <td class = "text-right text-dark" >
+                               <h5><strong>Sub Total:   </strong></h5>
+                               <p><strong>Tax (11%) :  </strong></p>
+                          </td>
+                          <td class = "text-center text-dark" >
+                             <h5> <strong><span id = "subTotal">Rp. 84.000</strong></h5>
+                             <h5> <strong><span id = "taxAmount">Rp. 9.420</strong></h5>
+                          </td>
+                       </tr>
+                       <tr>
 
             <td> </td>
             <td> </td>

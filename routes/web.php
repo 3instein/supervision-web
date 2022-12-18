@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,10 +19,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::get('/cart', function () {
+    return view('layouts.cart');
+});
+    
 //Route to Checkout Page (For testing)
 Route::get('/checkout', function () {
     return view('checkout');
+
 });
+
+Route::resource('transactions', TransactionController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -33,4 +42,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
