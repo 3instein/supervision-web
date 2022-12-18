@@ -7,10 +7,13 @@
                     <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>
     
                     <ul role="list" class="border-t border-b border-gray-200 divide-y divide-gray-200">
-                        {{ $subtotal = 0 }}
+                        @php $subtotal = 0; @endphp
                         @foreach ($userOrder->menus as $menu)
-                            {{ $subtotal += $menu->pivot->quantity * $menu->price }}
-                            <livewire:card-checkout :menu="$menu" />
+                            @php 
+                                $subtotal += $menu->pivot->quantity * $menu->price;
+                            @endphp
+                            {{-- <livewire:card-checkout :menu="$menu" /> --}}
+                            @livewire('card-checkout', ['menu' => $menu])
                         @endforeach
                     </ul>
                 </section>

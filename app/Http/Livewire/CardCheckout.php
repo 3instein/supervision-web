@@ -2,33 +2,35 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Menu;
 use Livewire\Component;
 
 class CardCheckout extends Component
 {
-    protected $rules = [
-        'menu.pivot.quantity' => 'required|numeric|min:1',
-    ];
+    // protected $rules = [
+    //     'menu.pivot.quantity' => 'required|numeric|min:1',
+    // ];
 
     public $menu;
+    public $quantity;
 
     public function mount($menu)
     {
         $this->menu = $menu;
+        $this->quantity = $menu->pivot->quantity;
     }
 
     public function increment()
-    {
-        $this->menu->orders()->updateExistingPivot($this->menu->id, [
-            'quantity' => $this->menu->pivot->quantity + 1,
-        ]);
-        dd($this->menu->orders());
+    {	
+        $this->quantity++;
+        $this->menu->orders()->updateExistingPivot($this->menu->orders()->first()->id, ['quantity' => $this->quantity]);
     }
 
     public function decrement()
     {
-        if ($this->menu->pivot->quantity > 1) {
-            $this->menu->pivot->quantity--;
+        if ($this->quantity > 1) {
+            $this->quantity--;
+            $this->menu->orders()->updateExistingPivot($this->menu->orders()->first()->id, ['quantity' => $this->quantity]);
         }
     }
 

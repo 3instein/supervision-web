@@ -21,7 +21,7 @@
 
                 <div class="mt-4 sm:mt-0 sm:pr-9">
                     <button class="text-xl mr-4" wire:click="decrement" type="button">-</button>
-                    <input class="w-10 text-xs text-center border-gray-400 rounded" type="text" value="{{ $menu->pivot->quantity }}"/>
+                    <input class="w-10 text-xs text-center border-gray-400 rounded" type="text" value="{{ $quantity }}"/>
                     <button class="text-xl ml-4" wire:click="increment" type="button">+</button>
 
                     <div class="absolute top-0 right-0">
