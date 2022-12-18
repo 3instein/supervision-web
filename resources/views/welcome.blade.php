@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-app-layout>
   <nav class="mb-8">
     <div class="flex mb-1 items-center py-3">
       <h4 class="flex-auto text-center font-bold">Lorem ipsum</h4>
@@ -19,15 +19,7 @@
     </div>
     <div class="flex justify-between flex-wrap">
       @foreach ($menus as $menu)
-        <div class="w-[164px] border mb-4 rounded-xl overflow-hidden">
-          <img class="h-[143px] object-cover"
-            src="{{ $menu->image }}"
-            alt="" />
-          <div class="mt-4 mx-4">
-            <p class="font-light">{{ $menu->name }}</p>
-            <p class="pb-4 text-xs font-extrabold">Rp. {{ number_format($menu->price) }}</p>
-          </div>
-        </div>
+        <livewire:show-menus :menu="$menu" />
       @endforeach
     </div>
   </div>
@@ -36,4 +28,4 @@
       feather.replace()
     </script>
   @endpush
-</x-guest-layout>
+</x-app-layout>
