@@ -21,7 +21,11 @@ class AddToCart extends Component {
 
     public function addToCart() {
         $orderId = Order::findOrFail(1);
-        $orderId->menus()->attach($this->menu->id, ['quantity' => $this->quantity, 'note' => $this->note]);
+        if ($this->quantity >= 1) {
+            $orderId->menus()->attach($this->menu->id, ['quantity' => $this->quantity, 'note' => $this->note]);
+            flash('Berhasil menambahkan ' . $this->quantity . ' ' . $this->menu->name . ' ke keranjang.')->success()->livewire($this);
+            $this->quantity = 1;
+        }
     }
 
     public function increment() {
