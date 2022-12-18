@@ -21,6 +21,7 @@ Route::get('/', function () {
 
 Route::get('/cart', function () {
     return view('layouts.cart');
+});
     
 //Route to Checkout Page (For testing)
 Route::get('/checkout', function () {
