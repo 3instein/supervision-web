@@ -19,8 +19,12 @@ use App\Http\Controllers\TransactionController;
 
 Route::get('/', [HomeController::class, 'index']);
 
+
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
+Route::get('/scan', function () {
+    return view('scan');
+});
 
 //Route to Checkout Page (For testing)
 Route::get('/checkout', function () {
