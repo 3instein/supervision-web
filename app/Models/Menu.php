@@ -20,4 +20,9 @@ class Menu extends Model
     {
         return $this->belongsToMany(Order::class);
     }
+
+    public function store()
+    {
+        return $this->belongsTo(Store::class);
+    }
 }
