@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    
-    <title>Supervision</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+  <title>Supervision</title>
 </head>
+
 <body>
     <div class = "container card mt-3">
             <div class = "p-4">
@@ -66,35 +69,37 @@
                        </tr>
                        <tr>
 
-                          <td> </td>
-                          <td> </td>
-                          <td class = "text-right text-dark">
-                             <h5><strong> Total:  </strong></h5>
-                          </td>
-                          <td class = "text-center text-danger">
-                             <h5 id = "totalPayment"><strong>Rp. 93.240 </strong></h5>
-                              
-                          </td>
-                       </tr>
-                       <tr>
+            <td> </td>
+            <td> </td>
+            <td class="text-right text-dark">
+              <h5><strong> Total: </strong></h5>
+            </td>
+            <td class="text-center text-danger">
+              <h5 id="totalPayment"><strong>Rp. 93.240 </strong></h5>
 
-                        <td> </td>
-                        <td> </td>
-                        <td class = "text-center">
-                           <a href = "#" class = "btn btn-success" >
-                                <span class = "bi bi-printer"></span> Print Receipt
-                           </a>
-                        </td>
-                        <td class = "text-center">
-                            <a href = "#" class = "btn btn-success"> 
-                                <span class="bi bi-back"></span> Back to Menu
-                            </a>
-                        </td>
-                     </tr>
-                    </table>
-                 </div>
-            </div>
+            </td>
+          </tr>
+          <tr>
+
+            <td> </td>
+            <td> </td>
+            <td class="text-center">
+              <a href="#" class="btn btn-success">
+                <span class="bi bi-printer"></span> Print Receipt
+              </a>
+            </td>
+            <td class="text-center">
+              <a href="#" class="btn btn-success">
+                <span class="bi bi-back"></span> Back to Menu
+              </a>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
+
 </html>
