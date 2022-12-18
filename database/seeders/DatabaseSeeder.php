@@ -4,8 +4,10 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Order;
 use App\Models\User;
+use App\Models\Order;
+use App\Models\Customer;
+use App\Models\Transaction;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -18,7 +20,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
         User::create(
             [
                 'name' => 'Test User',
@@ -26,9 +27,24 @@ class DatabaseSeeder extends Seeder
                 'password' => Hash::make('test'),
             ]
         );
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        Customer::create(
+            [
+                'email' => 'customer@gmail.com',
+                'password' => Hash::make('test'),
+                'points' => 0
+            ]
+        );
+        Order::create(
+            [
+                'customer_id' => 1,
+                'user_id' => 1,
+            ]
+        );
+        Transaction::create([
+            'order_id' => 1,
+            'total' => 10000,
+            'payment_method' => 'Cash',
+            'status' => 'Unpaid',
+        ]);
     }
 }

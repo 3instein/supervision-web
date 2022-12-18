@@ -14,8 +14,8 @@
                  <div class = "text-center">
                     <h4>Receipt</h4>
                  </div>
-                 <span class = "mt-4"> Date & Time : </span> <span class = "mt-4">10/12/2022 14:04:47</span>
-                 <p class = "mt-4"> Order No:1234</p>
+                 <span class = "mt-4"> Date & Time : </span> <span class = "mt-4">{{ $transaction->created_at }}</span>
+                 <p class = "mt-4"> Order No: {{ $transaction->order->id }}</p>
                  <div class = "row">
                     <table class = "table">
                        <thead>
