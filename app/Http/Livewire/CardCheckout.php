@@ -34,6 +34,11 @@ class CardCheckout extends Component {
         $this->emitUp('sumSubtotal');
     }
 
+    public function remove() {
+        $this->menu->orders()->detach($this->menu->orders()->first()->id);
+        $this->emitUp('sumSubtotal');
+    }
+
     public function render() {
         return view('livewire.card-checkout');
     }

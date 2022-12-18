@@ -25,7 +25,7 @@
           <button class="text-xl ml-4" wire:click="increment" type="button">+</button>
 
           <div class="absolute top-0 right-0">
-            <button type="button" class="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500">
+            <button type="button" class="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500" wire:click="remove">
               <span class="sr-only">Remove</span>
               <!-- Heroicon name: solid/x -->
               <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
