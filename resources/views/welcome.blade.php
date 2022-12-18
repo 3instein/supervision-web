@@ -1,4 +1,5 @@
 <x-app-layout>
+  <livewire:add-to-cart />
   <nav class="mb-8">
     <div class="flex mb-1 items-center py-3">
       <h4 class="flex-auto text-center font-bold">Lorem ipsum</h4>
@@ -17,13 +18,14 @@
       <h4 class="font-bold">Paling laris</h4>
       <p class="text-xs">Lihat semua</p>
     </div>
+    <livewire:flash-container />
     <div class="flex justify-between flex-wrap">
       @foreach ($menus as $menu)
         <livewire:card-menu :menu="$menu" />
       @endforeach
     </div>
   </div>
-  <livewire:add-to-cart />
+
   @push('addon-script')
     <script>
       feather.replace()

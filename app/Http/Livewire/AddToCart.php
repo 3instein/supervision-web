@@ -9,6 +9,8 @@ use Livewire\Component;
 class AddToCart extends Component {
     public $menu;
     public $showOverlay;
+    public $note;
+    public $quantity = 1;
 
     protected $listeners = ['getMenu'];
 
@@ -19,7 +21,21 @@ class AddToCart extends Component {
 
     public function addToCart() {
         $orderId = Order::findOrFail(1);
-        $orderId->menus()->attach($this->menu->id);
+        if ($this->quantity >= 1) {
+            $orderId->menus()->attach($this->menu->id, ['quantity' => $this->quantity, 'note' => $this->note]);
+            flash('Berhasil menambahkan ' . $this->quantity . ' ' . $this->menu->name . ' ke keranjang.')->success()->livewire($this);
+            $this->quantity = 1;
+        }
+    }
+
+    public function increment() {
+        $this->quantity++;
+    }
+
+    public function decrement() {
+        if ($this->quantity > 1) {
+            $this->quantity--;
+        }
     }
 
     public function render() {
