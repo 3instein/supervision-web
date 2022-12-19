@@ -3,7 +3,7 @@
   <nav class="mb-8">
     <div class="flex mb-1 items-center py-3">
       <h4 class="flex-auto text-center font-bold">Lorem ipsum</h4>
-      <a href="{{ route('cart.index') }}"><i data-feather="shopping-cart"></i></a>
+      <a href="{{ route('cart') }}"><i data-feather="shopping-cart"></i></a>
     </div>
     <div class="flex">
       <select class="flex-auto rounded-xl border-gray-400" name="" id="">
