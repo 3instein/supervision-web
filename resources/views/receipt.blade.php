@@ -19,6 +19,8 @@
                  </div>
                  <span class = "mt-4"> Date & Time : </span> <span class = "mt-4">{{ $transaction->created_at }}</span>
                  <p class = "mt-4"> Order No: {{ $transaction->order->id }}</p>
+                 <p class = "mt-4"> Cashier ID: {{ $transaction->order->user_id }}</p>
+                 <p class = "mt-4"> Cashier Name: {{ $transaction->order->user->name }}</p>
                  <div class = "row">
                     <table class = "table">
                        <thead>
@@ -30,30 +32,17 @@
                           </tr>
                        </thead>
                        <tbody>
-                        <tr>
-                            <td>Nasi Hainan</td>
-                            <td>1</td>
-                            <td class = "text-center">Rp. 35.000</td>
-                            <td class = "text-center">Rp. 35.000</td>
-                         </tr>
-                         <tr>
-                            <td>Nasi Goreng Jawa</td>
-                            <td>2</td>
-                            <td class = "text-center">Rp. 15.000</td>
-                            <td class = "text-center">Rp. 30.000</td>
-                         </tr>
-                         <tr>
-                            <td>Es Teh Hangat</td>
-                            <td>1</td>
-                            <td class = "text-center">Rp. 5.000</td>
-                            <td class = "text-center">Rp. 5.000</td>
-                         </tr>
-                         <tr>
-                            <td>Es Lemon Tea</td>
-                            <td>2</td>
-                            <td class = "text-center">Rp. 7.000</td>
-                            <td class = "text-center">Rp. 14.000</td>
-                         </tr>
+                        @php
+                          $subtotal = 0;
+                        @endphp
+                        @foreach($transaction->order->menus as $menu)
+                          <tr>
+                              <td>{{ $menu->name }}</td>
+                              <td>{{ $menu->pivot->quantity }} </td>
+                              <td class = "text-center">Rp. {{ number_format($menu->price) }}</td>
+                              <td class = "text-center">Rp. {{ number_format($subtotal += $menu->price * $menu->pivot->quantity) }}</td>
+                          </tr>
+                        @endforeach
                        </tbody>
                        <tr>
                           <td> </td>
@@ -63,8 +52,8 @@
                                <p><strong>Tax (11%) :  </strong></p>
                           </td>
                           <td class = "text-center text-dark" >
-                             <h5> <strong><span id = "subTotal">Rp. 84.000</strong></h5>
-                             <h5> <strong><span id = "taxAmount">Rp. 9.420</strong></h5>
+                             <h5> <strong><span id = "subTotal">Rp. {{ number_format($subtotal) }}</strong></h5>
+                             <h5> <strong><span id = "taxAmount">Rp. {{ number_format($tax = $subtotal * 0.11) }}</strong></h5>
                           </td>
                        </tr>
                        <tr>
@@ -75,7 +64,7 @@
               <h5><strong> Total: </strong></h5>
             </td>
             <td class="text-center text-danger">
-              <h5 id="totalPayment"><strong>Rp. 93.240 </strong></h5>
+              <h5 id="totalPayment"><strong>Rp. {{ number_format($subtotal + $tax) }}</strong></h5>
 
             </td>
           </tr>
@@ -84,12 +73,12 @@
             <td> </td>
             <td> </td>
             <td class="text-center">
-              <a href="#" class="btn btn-success">
+              {{-- <a href="#" class="btn btn-success">
                 <span class="bi bi-printer"></span> Print Receipt
-              </a>
+              </a> --}}
             </td>
             <td class="text-center">
-              <a href="#" class="btn btn-success">
+              <a href="{{ route('home') }}" class="btn btn-success">
                 <span class="bi bi-back"></span> Back to Menu
               </a>
             </td>
