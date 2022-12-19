@@ -15,7 +15,11 @@ class OrderAPIController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            'message' => 'Orders retrieved',
+            'order' => Order::all(),
+            'status_code' => 200,
+        ]);
     }
 
     /**
