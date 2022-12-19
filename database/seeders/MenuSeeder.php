@@ -28,21 +28,21 @@ class MenuSeeder extends Seeder
                 'price' => 30000,
                 'description' => 'Nasi hainan yang enak',
                 'image' => 'https://images.unsplash.com/photo-1541832676-9b763b0239ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1320&q=80',
-                'store_id' => 1,
+                'table_id' => 1,
             ],
             [
                 'name' => 'Wagyu Tomahawk',
                 'price' => 180000,
                 'description' => 'Wagyu Tomahawk yang enak',
                 'image' => 'https://images.unsplash.com/photo-1615937657715-bc7b4b7962c1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-                'store_id' => 1,
+                'table_id' => 1,
             ],
             [
                 'name' => 'Spaghetti Bolognase',
                 'price' => 35000,
                 'description' => 'Spaghetti Bolognase yang enak',
                 'image' => 'https://images.unsplash.com/photo-1598866594230-a7c12756260f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1308&q=80',
-                'store_id' => 1,
+                'table_id' => 1,
             ]
         ]);
     }

@@ -7,8 +7,10 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Store;
+use App\Models\Table;
 use App\Models\Customer;
 use App\Models\Transaction;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Database\Seeders\MenuSeeder;
 use Illuminate\Support\Facades\Hash;
@@ -34,12 +36,22 @@ class DatabaseSeeder extends Seeder
                 'email' => 'customer@gmail.com',
                 'password' => Hash::make('test'),
                 'points' => 0
-            ]
-        );
+                ]
+            );
+        Store::create([
+                'name' => 'Test Store',
+                'address' => 'Jl. Test',
+        ]);
+        Table::create([
+                'store_id' => 1,
+                'number' => '1',
+                'barcode' => Str::random(128),
+        ]);
         Order::create(
             [
                 'customer_id' => 1,
                 'user_id' => 1,
+                'table_id' => 1,
             ]
         );
         Transaction::create([
@@ -49,10 +61,7 @@ class DatabaseSeeder extends Seeder
             'status' => 'Unpaid',
         ]);
 
-        Store::create([
-            'name' => 'Test Store',
-            'address' => 'Jl. Test',
-        ]);
+
 
         $this->call([
             MenuSeeder::class,

@@ -28,4 +28,8 @@ class Order extends Model {
     public function menus() {
         return $this->belongsToMany(Menu::class, 'order_menus')->withPivot('quantity', 'note');
     }
+
+    public function table() {
+        return $this->belongsTo(Table::class);
+    }
 }
