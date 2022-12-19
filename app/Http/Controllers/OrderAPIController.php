@@ -105,6 +105,9 @@ class OrderAPIController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Order $order) {
-        //
+        return response()->json([
+            'message' => 'Order deleted',
+            'status_code' => 200,
+        ]);
     }
 }
