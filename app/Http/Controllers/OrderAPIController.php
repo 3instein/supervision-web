@@ -57,9 +57,34 @@ class OrderAPIController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, Order $order) {
+        // get order include menus
+        $order_response = [
+            'order_id' => $order->id,
+            'order_date' => $order->created_at,
+            'table_number' => $order->table->number,
+            'customer_name' => $order->customer->name,
+            'menus' => $order->menus->map(function ($menu) {
+                return [
+                    'name' => $menu->name,
+                    'price' => $menu->price * $menu->pivot->quantity,
+                    'quantity' => $menu->pivot->quantity,
+                ];
+            }),
+            'subtotal' => $order->menus->sum(function ($menu) {
+                return $menu->pivot->quantity * $menu->price;
+            }),
+            'tax' => $order->menus->sum(function ($menu) {
+                return $menu->pivot->quantity * $menu->price * 0.11;
+            }),
+            'total' => $order->menus->sum(function ($menu) {
+                //format to 2 decimal places
+                return $menu->pivot->quantity * $menu->price + $menu->pivot->quantity * $menu->price * 0.11;
+            }),
+            'payment_method' => $order->transaction->payment_method,
+        ];
         return response()->json([
             'message' => 'Order found',
-            'order' => $order,
+            'order' => $order_response,
             'status_code' => 200,
         ]);
     }
