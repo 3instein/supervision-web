@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
         );
         Customer::create(
             [
+                'name' => 'Test Customer',
                 'email' => 'customer@gmail.com',
                 'password' => Hash::make('test'),
                 'points' => 0
