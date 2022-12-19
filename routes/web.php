@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TableController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
 
@@ -31,6 +32,8 @@ Route::get('/scan', function () {
 Route::get('/signin', function () {
     return view('signin');
 });
+
+Route::resource('tables', TableController::class);
 
 Route::post('/signin', function (Request $request) {
 if (Auth::guard('customer')->attempt(['email' => $request->email, 'password' => 
