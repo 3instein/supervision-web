@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class OrderAPIController extends Controller
@@ -17,7 +18,18 @@ class OrderAPIController extends Controller
     {
         return response()->json([
             'message' => 'Orders retrieved',
-            'order' => Order::all(),
+            'orders' => Order::
+                        join('customers', 'orders.customer_id', '=', 'customers.id')
+                        ->join('order_menus', 'orders.id', '=', 'order_menus.order_id')
+                        ->join('menus', 'order_menus.menu_id', '=', 'menus.id')
+                        ->join('tables', 'orders.table_id', '=', 'tables.id')
+                        ->select(
+                            'orders.id as order_id',
+                            'customers.email as customer_email',
+                            'tables.number as table_number',
+                        )
+                        ->selectRaw('(SELECT SUM(menus.price * order_menus.quantity) FROM order_menus WHERE order_menus.order_id = orders.id) as total_price')
+                        ->get(),
             'status_code' => 200,
         ]);
     }
