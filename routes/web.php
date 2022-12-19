@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Transaction;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
@@ -17,18 +19,31 @@ use App\Http\Controllers\TransactionController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
 Route::get('/scan', function () {
     return view('scan');
 });
 
+Route::get('/signin', function () {
+    return view('signin');
+});
+
+Route::post('/signin', function (Request $request) {
+if (Auth::guard('customer')->attempt(['email' => $request->email, 'password' => 
+    $request->password])) {
+        return redirect()->intended(route('cart'));
+    }
+});
+
 //Route to Checkout Page (For testing)
-Route::get('/checkout', function () {
-    return view('checkout');
+Route::get('/receipt', function () {
+    return view('receipt', [
+        'transaction' => Transaction::find(1)->first()
+    ]);
 });
 
 Route::resource('transactions', TransactionController::class);
