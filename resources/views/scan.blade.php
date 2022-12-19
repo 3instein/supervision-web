@@ -8,7 +8,7 @@
 </head>
 <body>
     <div style="width: 500px" id="reader"></div>
-    
+
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
     <script>
         function onScanSuccess(decodedText, decodedResult) {

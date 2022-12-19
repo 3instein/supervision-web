@@ -25,22 +25,11 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
-Route::get('/scan', function () {
+Route::get('/test', function () {
     return view('scan');
 });
 
-Route::get('/signin', function () {
-    return view('signin');
-});
-
 Route::resource('tables', TableController::class);
-
-Route::post('/signin', function (Request $request) {
-if (Auth::guard('customer')->attempt(['email' => $request->email, 'password' => 
-    $request->password])) {
-        return redirect()->intended(route('cart'));
-    }
-});
 
 //Route to Checkout Page (For testing)
 Route::get('/receipt', function () {
