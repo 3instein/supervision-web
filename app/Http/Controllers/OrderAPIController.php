@@ -16,17 +16,26 @@ class OrderAPIController extends Controller {
     public function index() {
         return response()->json([
             'message' => 'Orders retrieved',
-            'orders' => Order::with('menus', 'customer:id,email')
-                ->where('customer_id', 1)
-                ->get()
-                ->each(function ($order) {
-                    $order->total = $order->menus->sum(function ($menu) {
-                        return $menu->pivot->quantity * $menu->price;
-                    });
-                })
-                ->each(function ($order) {
-                    $order->email = $order->customer->email;
-                }),
+            'orders' => $orders = Order::with('customer:id,name')
+            ->with('menus')
+            ->where('customer_id', 1)
+            ->get()
+            ->each(function ($order) {
+                $order->total = $order->menus->sum(function ($menu) {
+                    return $menu->pivot->quantity * $menu->price;
+                });
+            })
+            ->each(function ($order) {
+                $order->name = $order->customer->name;
+            })
+            ->map(function ($order) {
+                return [
+                    'order_id' => $order->id,
+                    'table_number' => $order->table->number,
+                    'customer_name' => $order->name,
+                    'total' => $order->total,
+                ];
+            }),
             'status_code' => 200,
         ]);
     }
