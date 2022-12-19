@@ -7,29 +7,26 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
-class OrderAPIController extends Controller
-{
+class OrderAPIController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         return response()->json([
             'message' => 'Orders retrieved',
-            'orders' => Order::
-                        join('customers', 'orders.customer_id', '=', 'customers.id')
-                        ->join('order_menus', 'orders.id', '=', 'order_menus.order_id')
-                        ->join('menus', 'order_menus.menu_id', '=', 'menus.id')
-                        ->join('tables', 'orders.table_id', '=', 'tables.id')
-                        ->select(
-                            'orders.id as order_id',
-                            'customers.email as customer_email',
-                            'tables.number as table_number',
-                        )
-                        ->selectRaw('(SELECT SUM(menus.price * order_menus.quantity) FROM order_menus WHERE order_menus.order_id = orders.id) as total_price')
-                        ->get(),
+            'orders' => Order::with('menus', 'customer:id,email')
+                ->where('customer_id', 1)
+                ->get()
+                ->each(function ($order) {
+                    $order->total = $order->menus->sum(function ($menu) {
+                        return $menu->pivot->quantity * $menu->price;
+                    });
+                })
+                ->each(function ($order) {
+                    $order->email = $order->customer->email;
+                }),
             'status_code' => 200,
         ]);
     }
@@ -40,8 +37,7 @@ class OrderAPIController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
@@ -51,8 +47,7 @@ class OrderAPIController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Order $order)
-    {
+    public function show(Request $request, Order $order) {
         return response()->json([
             'message' => 'Order found',
             'order' => $order,
@@ -67,8 +62,7 @@ class OrderAPIController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
-    {
+    public function update(Request $request, Order $order) {
         //
     }
 
@@ -78,8 +72,7 @@ class OrderAPIController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
-    {
+    public function destroy(Order $order) {
         //
     }
 }
