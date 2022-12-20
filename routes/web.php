@@ -43,7 +43,7 @@ Route::get('/receipt', function () {
     ]);
 });
 
-Route::resource('transactions', TransactionController::class);
+// Route::resource('transactions', TransactionController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

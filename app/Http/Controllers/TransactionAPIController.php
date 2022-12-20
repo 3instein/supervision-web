@@ -14,7 +14,31 @@ class TransactionAPIController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            'message' => 'Transactions retrieved',
+            'transactions' => Transaction::with('order:id,table_id,customer_id')
+                ->with('order.customer:id,name')
+                ->with('order.table:id,number')
+                ->with('order.menus')
+                ->get()
+                ->each(function ($transaction) {
+                    $transaction->total = $transaction->order->menus->sum(function ($menu) {
+                        return $menu->pivot->quantity * $menu->price;
+                    });
+                })
+                ->each(function ($transaction) {
+                    $transaction->name = $transaction->order->customer->name;
+                })
+                ->map(function ($transaction) {
+                    return [
+                        'transaction_id' => $transaction->id,
+                        'table_number' => $transaction->order->table->number,
+                        'customer_name' => $transaction->name,
+                        'total' => $transaction->total,
+                    ];
+                }),
+            'status_code' => 200
+        ]);
     }
 
     /**
