@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -108,6 +109,26 @@ class OrderAPIController extends Controller {
     public function destroy(Order $order) {
         return response()->json([
             'message' => 'Order deleted',
+            'status_code' => 200,
+        ]);
+    }
+
+    public function confirm(Order $order){
+        $order->transaction->update([
+            'status' => 'Paid',
+        ]);
+        return response()->json([
+            'message' => 'Order confirmed',
+            'status_code' => 200,
+        ]);
+    }
+    
+    public function cancel(Order $order){
+        $order->transaction->update([
+            'status' => 'Cancelled',
+        ]);
+        return response()->json([
+            'message' => 'Order cancelled',
             'status_code' => 200,
         ]);
     }
