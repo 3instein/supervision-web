@@ -31,7 +31,8 @@
 
         <!-- Page Content -->
         <main class="container px-4">
-            {{ $slot }}
+            @component('components.order-history-pages.invoice_list')
+            @endcomponent
         </main>
     </div>
     <script src="https://unpkg.com/feather-icons"></script>

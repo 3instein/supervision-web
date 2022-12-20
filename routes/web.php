@@ -31,6 +31,11 @@ Route::get('/test', function () {
 
 Route::resource('tables', TableController::class);
 
+// Route to Order Page (For testing)
+Route::get('/order', function () {
+    return view('layouts.order');
+});
+
 //Route to Checkout Page (For testing)
 Route::get('/receipt', function () {
     return view('receipt', [
