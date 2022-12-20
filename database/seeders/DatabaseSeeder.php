@@ -10,6 +10,7 @@ use App\Models\Store;
 use App\Models\Table;
 use App\Models\Customer;
 use App\Models\Transaction;
+use App\Models\Voucher;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Database\Seeders\MenuSeeder;
@@ -55,8 +56,17 @@ class DatabaseSeeder extends Seeder
                 'table_id' => 1,
             ]
         );
+        Voucher::create(
+            [
+                'name' => 'Test Voucher',
+                'description' => 'Test Voucher',
+                'minimal' => 10000,
+                'discount' => 10000,
+            ]
+        );
         Transaction::create([
             'order_id' => 1,
+            'voucher_id' => 1,
             'total' => 10000,
             'payment_method' => 'Cash',
             'status' => 'Unpaid',

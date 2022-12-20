@@ -72,12 +72,13 @@ class OrderAPIController extends Controller {
             'subtotal' => $order->menus->sum(function ($menu) {
                 return $menu->pivot->quantity * $menu->price;
             }),
+            'discount' => $order->transaction->voucher->discount ?? 0,
             'tax' => $order->menus->sum(function ($menu) {
                 return $menu->pivot->quantity * $menu->price * 0.11;
             }),
             'total' => $order->menus->sum(function ($menu) {
-                return $menu->pivot->quantity * $menu->price + $menu->pivot->quantity * $menu->price * 0.11;
-            }),
+                return $menu->pivot->quantity * $menu->price + $menu->pivot->quantity * $menu->price * 0.11 ;
+            }) - $order->transaction->voucher->discount ?? 0,
             'payment_method' => $order->transaction->payment_method,
         ];
         return response()->json([
