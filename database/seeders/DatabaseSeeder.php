@@ -16,15 +16,13 @@ use Illuminate\Database\Seeder;
 use Database\Seeders\MenuSeeder;
 use Illuminate\Support\Facades\Hash;
 
-class DatabaseSeeder extends Seeder
-{
+class DatabaseSeeder extends Seeder {
     /**
      * Seed the application's database.
      *
      * @return void
      */
-    public function run()
-    {
+    public function run() {
         User::create(
             [
                 'name' => 'Test User',
@@ -38,16 +36,16 @@ class DatabaseSeeder extends Seeder
                 'email' => 'customer@gmail.com',
                 'password' => Hash::make('test'),
                 'points' => 0
-                ]
-            );
+            ]
+        );
         Store::create([
-                'name' => 'Test Store',
-                'address' => 'Jl. Test',
+            'name' => 'Test Store',
+            'address' => 'Jl. Test',
         ]);
         Table::create([
-                'store_id' => 1,
-                'number' => '1',
-                'barcode' => Str::random(128),
+            'store_id' => 1,
+            'number' => '1',
+            'barcode' => Str::random(128),
         ]);
         Order::create(
             [
@@ -67,6 +65,7 @@ class DatabaseSeeder extends Seeder
         Transaction::create([
             'order_id' => 1,
             'voucher_id' => 1,
+            'confirmed_by' => null,
             'total' => 10000,
             'payment_method' => 'Cash',
             'status' => 'Unpaid',
