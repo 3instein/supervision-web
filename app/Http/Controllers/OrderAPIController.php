@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -17,26 +18,26 @@ class OrderAPIController extends Controller {
     public function index() {
         return response()->json([
             'message' => 'Orders retrieved',
-            'orders' => $orders = Order::with('customer:id,name')
-            ->with('menus')
-            ->where('customer_id', 1)
-            ->get()
-            ->each(function ($order) {
-                $order->total = $order->menus->sum(function ($menu) {
-                    return $menu->pivot->quantity * $menu->price;
-                });
-            })
-            ->each(function ($order) {
-                $order->name = $order->customer->name;
-            })
-            ->map(function ($order) {
-                return [
-                    'order_id' => $order->id,
-                    'table_number' => $order->table->number,
-                    'customer_name' => $order->name,
-                    'total' => $order->total,
-                ];
-            }),
+            'orders' => Order::with('customer:id,name')
+                ->with('menus')
+                ->where('customer_id', 1)
+                ->get()
+                ->each(function ($order) {
+                    $order->total = $order->menus->sum(function ($menu) {
+                        return $menu->pivot->quantity * $menu->price;
+                    });
+                })
+                ->each(function ($order) {
+                    $order->name = $order->customer->name;
+                })
+                ->map(function ($order) {
+                    return [
+                        'order_id' => $order->id,
+                        'table_number' => $order->table->number,
+                        'customer_name' => $order->name,
+                        'total' => $order->total,
+                    ];
+                }),
             'status_code' => 200,
         ]);
     }
@@ -78,7 +79,7 @@ class OrderAPIController extends Controller {
                 return $menu->pivot->quantity * $menu->price * 0.11;
             }),
             'total' => $order->menus->sum(function ($menu) {
-                return $menu->pivot->quantity * $menu->price + $menu->pivot->quantity * $menu->price * 0.11 ;
+                return $menu->pivot->quantity * $menu->price + $menu->pivot->quantity * $menu->price * 0.11;
             }) - $order->transaction->voucher->discount ?? 0,
             'payment_method' => $order->transaction->payment_method,
         ];
@@ -113,8 +114,9 @@ class OrderAPIController extends Controller {
         ]);
     }
 
-    public function confirm(Order $order){
+    public function confirm(Order $order, User $user) {
         $order->transaction->update([
+            'confirmed_by' => $user->id,
             'status' => 'Paid',
         ]);
 
@@ -124,11 +126,12 @@ class OrderAPIController extends Controller {
             'status_code' => 200,
         ]);
     }
-    
-    public function cancel(Order $order){
+
+    public function cancel(Order $order) {
         $order->transaction->update([
             'status' => 'Cancelled',
         ]);
+
         $order->forceDelete();
         return response()->json([
             'message' => 'Order cancelled',

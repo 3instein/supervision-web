@@ -5,15 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 
-class TransactionAPIController extends Controller
-{
+class TransactionAPIController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         return response()->json([
             'message' => 'Transactions retrieved',
             'transactions' => Transaction::with('order:id,table_id,customer_id')
@@ -35,6 +33,7 @@ class TransactionAPIController extends Controller
                         'table_number' => $transaction->order->table->number,
                         'customer_name' => $transaction->name,
                         'total' => $transaction->total,
+                        'status' => $transaction->status,
                     ];
                 }),
             'status_code' => 200
@@ -47,8 +46,7 @@ class TransactionAPIController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
@@ -58,9 +56,37 @@ class TransactionAPIController extends Controller
      * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function show(Transaction $transaction)
-    {
-        //
+    public function show(Transaction $transaction) {
+        $transaction_response = [
+            'transaction_id' => $transaction->id,
+            'order_date' => $transaction->created_at,
+            'table_number' => $transaction->order->table->number,
+            'customer_name' => $transaction->order->customer->name,
+            'menus' => $transaction->order->menus->map(function ($menu) {
+                return [
+                    'name' => $menu->name,
+                    'price' => $menu->price * $menu->pivot->quantity,
+                    'quantity' => $menu->pivot->quantity,
+                ];
+            }),
+            'subtotal' => $transaction->order->menus->sum(function ($menu) {
+                return $menu->pivot->quantity * $menu->price;
+            }),
+            'discount' => $transaction->order->transaction->voucher->discount ?? 0,
+            'tax' => $transaction->order->menus->sum(function ($menu) {
+                return $menu->pivot->quantity * $menu->price * 0.11;
+            }),
+            'total' => $transaction->order->menus->sum(function ($menu) {
+                return $menu->pivot->quantity * $menu->price + $menu->pivot->quantity * $menu->price * 0.11;
+            }) - $transaction->order->transaction->voucher->discount ?? 0,
+            'payment_method' => $transaction->order->transaction->payment_method,
+        ];
+
+        return response()->json([
+            'message' => 'Order found',
+            'transaction' => $transaction_response,
+            'status_code' => 200,
+        ]);
     }
 
     /**
@@ -70,8 +96,7 @@ class TransactionAPIController extends Controller
      * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Transaction $transaction)
-    {
+    public function update(Request $request, Transaction $transaction) {
         //
     }
 
@@ -81,8 +106,7 @@ class TransactionAPIController extends Controller
      * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Transaction $transaction)
-    {
+    public function destroy(Transaction $transaction) {
         //
     }
 }
