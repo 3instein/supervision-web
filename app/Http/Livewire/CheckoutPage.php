@@ -21,10 +21,12 @@ class CheckoutPage extends Component {
 
     public function sumSubtotal() {
         $this->subtotal = 0;
-        foreach ($this->userOrder->menus as $menu) {
-            $this->subtotal += $menu->pivot->quantity * $menu->price;
-            $this->tax = $this->subtotal * 0.11;
-            $this->total = $this->subtotal + $this->tax;
+        if(isset($this->userOrder->menus)) {
+            foreach ($this->userOrder->menus as $menu) {
+                $this->subtotal += $menu->pivot->quantity * $menu->price;
+                $this->tax = $this->subtotal * 0.11;
+                $this->total = $this->subtotal + $this->tax;
+            }
         }
     }
 

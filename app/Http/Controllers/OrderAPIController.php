@@ -117,6 +117,8 @@ class OrderAPIController extends Controller {
         $order->transaction->update([
             'status' => 'Paid',
         ]);
+
+        $order->delete();
         return response()->json([
             'message' => 'Order confirmed',
             'status_code' => 200,
