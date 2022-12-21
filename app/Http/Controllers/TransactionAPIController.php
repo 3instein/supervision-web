@@ -18,6 +18,7 @@ class TransactionAPIController extends Controller {
                 ->with('order.customer:id,name')
                 ->with('order.table:id,number')
                 ->with('order.menus')
+                ->whereNotNull('confirmed_by')
                 ->get()
                 ->each(function ($transaction) {
                     $transaction->total = $transaction->order->menus->sum(function ($menu) {

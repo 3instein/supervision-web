@@ -23,6 +23,13 @@ class DatabaseSeeder extends Seeder {
      * @return void
      */
     public function run() {
+        Store::create([
+            'name' => 'Test Store',
+            'address' => 'Jl. Test',
+        ]);
+        $this->call([
+            MenuSeeder::class,
+        ]);
         User::create(
             [
                 'name' => 'Test User',
@@ -38,22 +45,20 @@ class DatabaseSeeder extends Seeder {
                 'points' => 0
             ]
         );
-        Store::create([
-            'name' => 'Test Store',
-            'address' => 'Jl. Test',
-        ]);
+
         Table::create([
             'store_id' => 1,
             'number' => '1',
             'barcode' => Str::random(128),
         ]);
-        Order::create(
+        $order = Order::create(
             [
                 'customer_id' => 1,
-                'user_id' => 1,
                 'table_id' => 1,
             ]
         );
+
+        $order->menus()->attach(1, ['quantity' => 1, 'note' => 'Test Note']);
         Voucher::create(
             [
                 'name' => 'Test Voucher',
@@ -73,8 +78,6 @@ class DatabaseSeeder extends Seeder {
 
 
 
-        $this->call([
-            MenuSeeder::class,
-        ]);
+        
     }
 }

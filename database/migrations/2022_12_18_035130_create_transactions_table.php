@@ -15,7 +15,6 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->foreignId('voucher_id')->references('id')->on('vouchers')->nullable()->onDelete('cascade');
-            $table->foreignId('confirmed_by')->constrained('users', 'id');
             $table->integer('total');
             $table->enum('payment_method', ['Cash', 'Debit/Credit'])->default('Cash');
             $table->enum('status', ['Unpaid', 'Paid', 'Cancelled'])->default('Unpaid');

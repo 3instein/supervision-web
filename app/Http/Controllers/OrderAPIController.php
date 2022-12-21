@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Transaction;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class OrderAPIController extends Controller {
@@ -114,9 +115,9 @@ class OrderAPIController extends Controller {
         ]);
     }
 
-    public function confirm(Order $order, User $user) {
+    public function confirm(Order $order) {
         $order->transaction->update([
-            'confirmed_by' => $user->id,
+            'confirmed_by' => Auth::id(),
             'status' => 'Paid',
         ]);
 

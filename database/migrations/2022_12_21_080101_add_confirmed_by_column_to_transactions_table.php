@@ -12,9 +12,7 @@ return new class extends Migration {
      */
     public function up() {
         Schema::table('transactions', function (Blueprint $table) {
-            $table->unsignedBigInteger('confirmed_by')->nullable()->change()->after('voucher_id');
-            $table->dropForeign(['confirmed_by']);
-            $table->foreign('confirmed_by')->references('id')->on('users')->onDelete('set null');
+            $table->foreignId('confirmed_by')->nullable()->after('voucher_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -25,7 +23,6 @@ return new class extends Migration {
      */
     public function down() {
         Schema::table('transactions', function (Blueprint $table) {
-            $table->unsignedBigInteger('confirmed_by')->change();
         });
     }
 };

@@ -19,11 +19,11 @@ use App\Http\Controllers\AuthenticationAPIController;
 
 Route::post('/authenticate', [AuthenticationAPIController::class, 'authenticate']);
 
-Route::resource('orders', OrderAPIController::class);
-Route::resource('transactions', TransactionAPIController::class);
-Route::get('/orders/{order}/{user}/confirm', [OrderAPIController::class, 'confirm']);
 Route::get('/orders/{order}/cancel', [OrderAPIController::class, 'cancel']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::resource('orders', OrderAPIController::class);
+    Route::get('/orders/{order}/confirm', [OrderAPIController::class, 'confirm']);
+    Route::resource('transactions', TransactionAPIController::class);
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
