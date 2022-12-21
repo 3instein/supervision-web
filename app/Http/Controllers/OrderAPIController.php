@@ -129,6 +129,7 @@ class OrderAPIController extends Controller {
         $order->transaction->update([
             'status' => 'Cancelled',
         ]);
+        $order->forceDelete();
         return response()->json([
             'message' => 'Order cancelled',
             'status_code' => 200,
