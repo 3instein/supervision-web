@@ -20,11 +20,18 @@ class AddToCart extends Component {
     }
 
     public function addToCart() {
-        $orderId = Order::findOrFail(1);
+        $order = Order::findOrFail(1);
         if ($this->quantity >= 1) {
-            $orderId->menus()->attach($this->menu->id, ['quantity' => $this->quantity, 'note' => $this->note]);
-            flash('Berhasil menambahkan ' . $this->quantity . ' ' . $this->menu->name . ' ke keranjang.')->success()->livewire($this);
-            $this->quantity = 1;
+            if(!$order->menus->contains($this->menu->id)){
+                $order->menus()->attach($this->menu->id, ['quantity' => $this->quantity, 'note' => $this->note]);
+                flash('Berhasil menambahkan ' . $this->quantity . ' ' . $this->menu->name . ' ke keranjang.')->success()->livewire($this);
+                $this->quantity = 1;
+            } else {
+                $oldValue = $this->menu->orders->first()->pivot->quantity;
+                $order->menus()->updateExistingPivot($this->menu->id, ['quantity' => $oldValue + $this->quantity, 'note' => $this->note]);
+                flash('Berhasil menambahkan ' . $this->quantity . ' ' . $this->menu->name . ' ke keranjang.')->success()->livewire($this);
+                $this->quantity = 1;
+            }
         }
     }
 
