@@ -43,6 +43,11 @@ Route::get('/receipt', function () {
     ]);
 });
 
+// Route to Order Page (For testing)
+Route::get('/signin', function () {
+    return view('layouts.sign-in');
+});
+
 // Route::resource('transactions', TransactionController::class);
 
 Route::get('/dashboard', function () {
