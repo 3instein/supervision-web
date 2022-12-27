@@ -7,12 +7,14 @@ use Livewire\Component;
 class CardCheckout extends Component {
     public $menu;
     public $quantity;
+    public $note;
 
     protected $listeners = ['changeQuantity'];
 
     public function mount($menu) {
         $this->menu = $menu;
         $this->quantity = $menu->pivot->quantity;
+        $this->note = $menu->pivot->note;
     }
 
     public function increment() {
