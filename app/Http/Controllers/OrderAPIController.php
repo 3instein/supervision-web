@@ -84,6 +84,7 @@ class OrderAPIController extends Controller {
             }) - $order->transaction->voucher->discount ?? 0,
             'payment_method' => $order->transaction->payment_method,
         ];
+
         return response()->json([
             'message' => 'Order found',
             'order' => $order_response,
@@ -99,7 +100,25 @@ class OrderAPIController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Order $order) {
-        //
+        $menu = $order->menus->where('id', $request->menu_id)->first();
+        $message = '';
+        if ($request->type == 'update' && isset($menu)) {
+            $order->menus()->updateExistingPivot($request->menu_id, ['quantity' => $request->quantity]);
+            $message = 'Menu updated!';
+        } else if ($request->type == 'add' && !isset($menu)) {
+            $order->menus()->attach($request->menu_id, ['quantity' => $request->quantity]);
+            $message = 'Menu added!';
+        } else if ($request->type == 'remove' && isset($menu)) {
+            $order->menus()->detach($request->menu_id);
+            $message = 'Menu removed!';
+        } else {
+            $message = 'Menu not found!';
+        }
+
+        return response()->json([
+            'message' => $message,
+            'status_code' => 200,
+        ]);
     }
 
     /**
