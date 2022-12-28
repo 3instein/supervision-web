@@ -100,19 +100,17 @@ class OrderAPIController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Order $order) {
-        $menu = $order->menus->where('id', $request->menu_id)->first();
-        $message = '';
-        if ($request->type == 'update' && isset($menu)) {
+        if ($request->type == 'update') {
             $order->menus()->updateExistingPivot($request->menu_id, ['quantity' => $request->quantity]);
-            $message = 'Menu updated!';
-        } else if ($request->type == 'add' && !isset($menu)) {
+            $message = 'Menu berhasil diubah!';
+        } else if ($request->type == 'add') {
             $order->menus()->attach($request->menu_id, ['quantity' => $request->quantity]);
-            $message = 'Menu added!';
-        } else if ($request->type == 'remove' && isset($menu)) {
+            $message = 'Menu berhasil ditambahkan!';
+        } else if ($request->type == 'remove') {
             $order->menus()->detach($request->menu_id);
-            $message = 'Menu removed!';
+            $message = 'Menu berhasil dihapus!';
         } else {
-            $message = 'Menu not found!';
+            $message = 'Menu tidak ditemukan!';
         }
 
         return response()->json([
