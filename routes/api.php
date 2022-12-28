@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderAPIController;
 use App\Http\Controllers\TransactionAPIController;
 use App\Http\Controllers\AuthenticationAPIController;
+use App\Http\Controllers\MenuAPIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,10 +20,11 @@ use App\Http\Controllers\AuthenticationAPIController;
 
 Route::post('/authenticate', [AuthenticationAPIController::class, 'authenticate']);
 
-Route::get('/orders/{order}/cancel', [OrderAPIController::class, 'cancel']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('orders', OrderAPIController::class);
+    Route::resource('menus', MenuAPIController::class);
     Route::get('/orders/{order}/confirm', [OrderAPIController::class, 'confirm']);
+    Route::get('/orders/{order}/cancel', [OrderAPIController::class, 'cancel']);
     Route::resource('transactions', TransactionAPIController::class);
     Route::get('/user', function (Request $request) {
         return $request->user();
