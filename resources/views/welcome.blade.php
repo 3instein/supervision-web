@@ -1,5 +1,5 @@
 <x-app-layout>
-  <livewire:add-to-cart />
+  <livewire:add-to-cart :table="$table" />
   <nav class="mb-8">
     <div class="flex mb-1 items-center py-3">
       <h4 class="flex-auto text-center font-bold">{{ $table->store->name }} - Table {{ $table->number }}</h4>

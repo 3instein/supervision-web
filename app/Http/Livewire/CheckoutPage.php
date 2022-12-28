@@ -30,6 +30,15 @@ class CheckoutPage extends Component {
         }
     }
 
+    public function checkout(){
+        $this->userOrder->transaction()->create([
+            'order_id' => $this->userOrder->id,
+            'total' => $this->total,
+        ]);
+        $this->userOrder->delete();
+        return redirect()->route('home');
+    }
+
     public function render() {
         return view('livewire.checkout-page');
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Order;
 use Livewire\Component;
 
 class CardCheckout extends Component {
@@ -37,7 +38,13 @@ class CardCheckout extends Component {
     }
 
     public function remove() {
-        $this->menu->orders()->detach($this->menu->orders()->first()->id);
+        $order = Order::where('customer_id', 1)->first();
+        if($order->menus->count() == 1){
+            $this->menu->orders()->detach($this->menu->orders()->first()->id);
+            $order->delete();
+        } else {
+            $this->menu->orders()->detach($this->menu->orders()->first()->id);
+        }
         $this->emitUp('sumSubtotal');
     }
 
