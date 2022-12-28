@@ -13,7 +13,7 @@ class MenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Table $table, Request $request)
+    public function index(Table $table)
     {
         return view('welcome', [
             'menus' => Menu::where('store_id', $table->store_id)->get(),

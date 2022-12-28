@@ -2,7 +2,7 @@
   <livewire:add-to-cart />
   <nav class="mb-8">
     <div class="flex mb-1 items-center py-3">
-      <h4 class="flex-auto text-center font-bold">{{ $table }}</h4>
+      <h4 class="flex-auto text-center font-bold">{{ $table->store->name }} - Table {{ $table->number }}</h4>
       <a href="{{ route('cart') }}"><i data-feather="shopping-cart"></i></a>
     </div>
     <div class="flex">
@@ -19,9 +19,13 @@
       <p class="text-xs">Lihat semua</p>
     </div>
     <livewire:flash-container />
-    @foreach ($menus as $menu)
+    @forelse ($menus as $menu)
       <livewire:card-menu :menu="$menu" />
-    @endforeach
+    @empty
+      <div class="text-center">
+        <p class="text-gray-400">Tidak ada menu</p>
+      </div>
+    @endforelse
   </div>
 
   @push('addon-script')
