@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
@@ -25,9 +26,11 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
-Route::get('/test', function () {
+Route::get('/scan', function () {
     return view('scan');
 });
+
+Route::post('/scan', [TableController::class, 'scan'])->name('scan');
 
 Route::resource('tables', TableController::class);
 
@@ -47,6 +50,8 @@ Route::get('/receipt', function () {
 Route::get('/signin', function () {
     return view('layouts.sign-in');
 });
+
+Route::resource('menus', MenuController::class);
 
 // Route::resource('transactions', TransactionController::class);
 

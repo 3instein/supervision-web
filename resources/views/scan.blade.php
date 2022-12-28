@@ -12,10 +12,18 @@
     <div style="width: 500px" id="reader"></div>
 
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
     <script>
         function onScanSuccess(decodedText, decodedResult) {
             // Handle on success condition with the decoded text or result.
-            console.log(`Scan result: ${decodedText}`, decodedResult);
+            var url = 'http://supervision-web.test/scan';
+            var form = $('<form action="' + url + '" method="POST" id="barcode-form">' +
+            '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
+            '<input type="text" name="barcode" value="' + decodedText + '" />' +
+            '</form>');
+            $('body').append(form);
+            document.getElementById("barcode-form").display = "none";
+            form.submit();
         }
 
         var html5QrcodeScanner = new Html5QrcodeScanner(

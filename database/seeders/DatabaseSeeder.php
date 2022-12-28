@@ -27,6 +27,8 @@ class DatabaseSeeder extends Seeder {
             'name' => 'Test Store',
             'address' => 'Jl. Test',
         ]);
+
+        Table::factory(5)->create();
         $this->call([
             MenuSeeder::class,
         ]);
@@ -45,12 +47,6 @@ class DatabaseSeeder extends Seeder {
                 'points' => 0
             ]
         );
-
-        Table::create([
-            'store_id' => 1,
-            'number' => '1',
-            'barcode' => Str::random(128),
-        ]);
         $order = Order::create(
             [
                 'customer_id' => 1,
