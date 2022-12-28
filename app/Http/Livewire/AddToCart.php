@@ -19,8 +19,11 @@ class AddToCart extends Component {
         $this->showOverlay = true;
     }
 
-    public function addToCart() {
-        $order = Order::findOrFail(1);
+    public function addToCart(Table $table) {
+        $order = Order::create([
+            'customer_id' => 1,
+            'table_id' => $table->id,
+        ]);
         if ($this->quantity >= 1) {
             if(!$order->menus->contains($this->menu->id)){
                 $order->menus()->attach($this->menu->id, ['quantity' => $this->quantity, 'note' => $this->note]);

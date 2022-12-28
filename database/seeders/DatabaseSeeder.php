@@ -47,14 +47,14 @@ class DatabaseSeeder extends Seeder {
                 'points' => 0
             ]
         );
-        $order = Order::create(
-            [
-                'customer_id' => 1,
-                'table_id' => 1,
-            ]
-        );
+        // $order = Order::create(
+        //     [
+        //         'customer_id' => 1,
+        //         'table_id' => 1,
+        //     ]
+        // );
 
-        $order->menus()->attach(1, ['quantity' => 1, 'note' => 'Test Note']);
+        // $order->menus()->attach(1, ['quantity' => 1, 'note' => 'Test Note']);
         Voucher::create(
             [
                 'name' => 'Test Voucher',
@@ -63,14 +63,14 @@ class DatabaseSeeder extends Seeder {
                 'discount' => 10000,
             ]
         );
-        Transaction::create([
-            'order_id' => 1,
-            'voucher_id' => 1,
-            'confirmed_by' => null,
-            'total' => 10000,
-            'payment_method' => 'Cash',
-            'status' => 'Unpaid',
-        ]);
+        // Transaction::create([
+        //     'order_id' => 1,
+        //     'voucher_id' => 1,
+        //     'confirmed_by' => null,
+        //     'total' => 10000,
+        //     'payment_method' => 'Cash',
+        //     'status' => 'Unpaid',
+        // ]);
 
 
 

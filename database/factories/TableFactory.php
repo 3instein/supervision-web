@@ -18,7 +18,7 @@ class TableFactory extends Factory
     {
         return [
             'store_id' => 1,
-            'number' => $this->faker->numberBetween(1, 10),
+            'number' => $this->faker->unique()->numberBetween(1, 5),
             'barcode' => $this->faker->unique()->isbn13,
         ];
     }
