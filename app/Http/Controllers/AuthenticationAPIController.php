@@ -6,10 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class AuthenticationAPIController extends Controller
-{
-    public function authenticate(Request $request){
-        
+class AuthenticationAPIController extends Controller {
+    public function authenticate(Request $request) {
+
         $credentials = $request->only('username', 'password');
 
         $validator = Validator::make($credentials, [
@@ -17,7 +16,7 @@ class AuthenticationAPIController extends Controller
             'password' => ['required'],
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 'message' => 'Validation failed',
                 'errors' => $validator->errors(),
@@ -44,7 +43,7 @@ class AuthenticationAPIController extends Controller
         ]);
     }
 
-    public function logout(){
+    public function logout() {
         auth()->user()->tokens()->delete();
 
         return response()->json([

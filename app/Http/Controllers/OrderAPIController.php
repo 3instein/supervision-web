@@ -84,6 +84,7 @@ class OrderAPIController extends Controller {
             }) - $order->transaction->voucher->discount ?? 0,
             'payment_method' => $order->transaction->payment_method,
         ];
+
         return response()->json([
             'message' => 'Order found',
             'order' => $order_response,
@@ -99,7 +100,23 @@ class OrderAPIController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Order $order) {
-        //
+        if ($request->type == 'update') {
+            $order->menus()->updateExistingPivot($request->menu_id, ['quantity' => $request->quantity]);
+            $message = 'Menu berhasil diubah!';
+        } else if ($request->type == 'add') {
+            $order->menus()->attach($request->menu_id, ['quantity' => $request->quantity]);
+            $message = 'Menu berhasil ditambahkan!';
+        } else if ($request->type == 'remove') {
+            $order->menus()->detach($request->menu_id);
+            $message = 'Menu berhasil dihapus!';
+        } else {
+            $message = 'Menu tidak ditemukan!';
+        }
+
+        return response()->json([
+            'message' => $message,
+            'status_code' => 200,
+        ]);
     }
 
     /**
