@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
+use App\Models\Table;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
@@ -12,9 +13,12 @@ class MenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Table $table)
     {
-        //
+        return view('welcome', [
+            'menus' => Menu::where('store_id', $table->store_id)->get(),
+            'table' => $table
+        ]);
     }
 
     /**

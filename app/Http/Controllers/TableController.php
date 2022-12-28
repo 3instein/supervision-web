@@ -82,4 +82,13 @@ class TableController extends Controller
     {
         //
     }
+
+    public function scan(Request $request)
+    {
+        $table = Table::where('barcode', $request->barcode)->first();
+
+        if ($table) {
+            return redirect()->route('menus.index', $table);
+        }
+    }
 }
