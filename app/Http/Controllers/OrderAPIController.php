@@ -67,7 +67,9 @@ class OrderAPIController extends Controller {
             'customer_name' => $order->customer->name,
             'menus' => $order->menus->map(function ($menu) {
                 return [
+                    'id' => $menu->id,
                     'name' => $menu->name,
+                    'image' => $menu->image,
                     'price' => $menu->price * $menu->pivot->quantity,
                     'quantity' => $menu->pivot->quantity,
                 ];
