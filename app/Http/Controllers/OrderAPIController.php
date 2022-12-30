@@ -21,7 +21,11 @@ class OrderAPIController extends Controller {
             'message' => 'Orders retrieved',
             'orders' => Order::with('customer:id,name')
                 ->with('menus')
+                ->withTrashed()
                 ->where('customer_id', 1)
+                ->whereHas('transaction', function ($query) {
+                    $query->where('status', 'Unpaid');
+                })
                 ->get()
                 ->each(function ($order) {
                     $order->total = $order->menus->sum(function ($menu) {
@@ -59,7 +63,8 @@ class OrderAPIController extends Controller {
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Order $order) {
+    public function show(Order $order, Request $request) {
+        // $order = Order::withTrashed()->find($id);
         $order_response = [
             'order_id' => $order->id,
             'order_date' => $order->created_at,
@@ -83,7 +88,7 @@ class OrderAPIController extends Controller {
             }),
             'total' => $order->menus->sum(function ($menu) {
                 return $menu->pivot->quantity * $menu->price + $menu->pivot->quantity * $menu->price * 0.11;
-            }) - $order->transaction->voucher->discount ?? 0,
+            }) - ($order->transaction->voucher->discount ?? 0),
             'payment_method' => $order->transaction->payment_method,
         ];
 

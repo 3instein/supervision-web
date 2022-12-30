@@ -79,7 +79,7 @@ class TransactionAPIController extends Controller {
             }),
             'total' => $transaction->order->menus->sum(function ($menu) {
                 return $menu->pivot->quantity * $menu->price + $menu->pivot->quantity * $menu->price * 0.11;
-            }) - $transaction->order->transaction->voucher->discount ?? 0,
+            }) - ($transaction->order->transaction->voucher->discount ?? 0),
             'payment_method' => $transaction->order->transaction->payment_method,
         ];
 

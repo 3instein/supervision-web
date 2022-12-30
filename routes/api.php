@@ -21,10 +21,13 @@ use App\Http\Controllers\MenuAPIController;
 Route::post('/authenticate', [AuthenticationAPIController::class, 'authenticate']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::resource('orders', OrderAPIController::class);
+    
+    
+    Route::resource('orders', OrderAPIController::class)->withTrashed();
+    Route::get('/orders/{order}/confirm', [OrderAPIController::class, 'confirm'])->withTrashed();
+    Route::get('/orders/{order}/cancel', [OrderAPIController::class, 'cancel'])->withTrashed();
+
     Route::resource('menus', MenuAPIController::class);
-    Route::get('/orders/{order}/confirm', [OrderAPIController::class, 'confirm']);
-    Route::get('/orders/{order}/cancel', [OrderAPIController::class, 'cancel']);
     Route::resource('transactions', TransactionAPIController::class);
     Route::get('/user', function (Request $request) {
         return $request->user();
