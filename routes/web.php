@@ -46,6 +46,11 @@ Route::get('/receipt', function () {
     ]);
 });
 
+//Route to Checkout Page (For testing)
+Route::get('/offers', function () {
+    return view('layouts.offers');
+});
+
 // Route to Order Page (For testing)
 Route::get('/signin', function () {
     return view('layouts.sign-in');
