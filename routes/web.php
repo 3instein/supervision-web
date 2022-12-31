@@ -56,6 +56,8 @@ Route::get('/signin', function () {
     return view('layouts.sign-in');
 });
 
+Route::post('/login', [CustomerController::class, 'login'])->name('customer.login');
+
 Route::resource('menus', MenuController::class)->except(['index', 'show']);
 Route::get('/menus/{table}', [MenuController::class, 'index'])->name('menus.index');
 

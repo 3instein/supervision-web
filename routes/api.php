@@ -27,7 +27,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/orders/{order}/confirm', [OrderAPIController::class, 'confirm'])->withTrashed();
     Route::get('/orders/{order}/cancel', [OrderAPIController::class, 'cancel'])->withTrashed();
 
-    Route::resource('menus', MenuAPIController::class);
+    Route::resource('menus-api', MenuAPIController::class);
     Route::resource('transactions', TransactionAPIController::class);
     Route::get('/user', function (Request $request) {
         return $request->user();
