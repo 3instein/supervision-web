@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\TransactionController;
 
 /*
@@ -56,7 +57,7 @@ Route::get('/signin', function () {
     return view('layouts.sign-in');
 });
 
-Route::post('/login', [CustomerController::class, 'login'])->name('customer.login');
+Route::post('/signin', [CustomerController::class, 'login'])->name('customer.login');
 
 Route::resource('menus', MenuController::class)->except(['index', 'show']);
 Route::get('/menus/{table}', [MenuController::class, 'index'])->name('menus.index');
