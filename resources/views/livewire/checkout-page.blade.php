@@ -17,6 +17,9 @@
         @endisset
       </ul>
     </section>
+    <div class="mt-6">
+      <livewire:flash-container />
+    </div>
 
     <!-- Voucher -->
     <section aria-labelledby="vouchers" @click="open = true">
@@ -37,7 +40,6 @@
             @else
               Pakai voucher
             @endif
-
           </span>
         </div>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -61,7 +63,8 @@
         @if ($selectedVoucher)
           <div class="flex items-center justify-between">
             <dt class="text-sm text-gray-600">Discount</dt>
-            <dd class="text-sm font-medium text-gray-900">- Rp. {{ number_format($selectedVoucher->discount ?? 0) }}</dd>
+            <dd class="text-sm font-medium text-gray-900">- Rp. {{ number_format($selectedVoucher->discount ?? 0) }}
+            </dd>
           </div>
         @endif
         <div class="border-t border-gray-200 pt-4 flex items-center justify-between">

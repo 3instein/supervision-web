@@ -25,6 +25,8 @@ class VoucherModal extends Component {
             if ($total >= $voucher->minimal) {
                 $this->selectedVoucher = $voucher;
                 $this->emit('getVoucher', $this->selectedVoucher);
+            } else {
+                flash('Tidak dapat menggunakan voucher! Minimal pembelian tidak mencukupi.')->warning()->livewire($this);
             }
         }
     }
