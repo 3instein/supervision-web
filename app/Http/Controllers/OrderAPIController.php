@@ -17,32 +17,32 @@ class OrderAPIController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
+        $orders = Order::with('customer:id,name')
+            ->with('menus')
+            ->withTrashed()
+            ->whereHas('transaction', function ($query) {
+                $query->where('status', 'Unpaid');
+            })
+            ->get()
+            ->each(function ($order) {
+                $order->total = $order->menus->sum(function ($menu) {
+                    return $menu->pivot->quantity * $menu->price;
+                });
+            })
+            ->each(function ($order) {
+                $order->name = $order->customer->name;
+            })
+            ->map(function ($order) {
+                return [
+                    'order_id' => $order->id,
+                    'table_number' => $order->table->number,
+                    'customer_name' => $order->name,
+                    'total' => $order->total,
+                ];
+            });
         return response()->json([
             'message' => 'Orders retrieved',
-            'orders' => Order::with('customer:id,name')
-                ->with('menus')
-                ->withTrashed()
-                ->where('customer_id', 1)
-                ->whereHas('transaction', function ($query) {
-                    $query->where('status', 'Unpaid');
-                })
-                ->get()
-                ->each(function ($order) {
-                    $order->total = $order->menus->sum(function ($menu) {
-                        return $menu->pivot->quantity * $menu->price;
-                    });
-                })
-                ->each(function ($order) {
-                    $order->name = $order->customer->name;
-                })
-                ->map(function ($order) {
-                    return [
-                        'order_id' => $order->id,
-                        'table_number' => $order->table->number,
-                        'customer_name' => $order->name,
-                        'total' => $order->total,
-                    ];
-                }),
+            'orders' => $orders,
             'status_code' => 200,
         ]);
     }
