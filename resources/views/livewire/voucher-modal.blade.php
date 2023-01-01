@@ -1,15 +1,15 @@
 <div>
-  <div class="fixed top-1/2 left-0 -translate-y-1/2 w-full z-50">
+  <div class="absolute top-1/2 left-0 w-full -translate-y-1/2 z-50">
     <div class="relative w-full h-full">
       <!-- Modal content -->
-      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <div class="relative bg-white rounded-lg shadow">
         <!-- Modal header -->
-        <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-          <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+        <div class="flex items-start justify-between p-4 border-b rounded-t">
+          <h3 class="text-xl font-semibold text-gray-900">
             Voucher yang tersedia
           </h3>
           <button type="button" @click="open = false"
-            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
             data-modal-toggle="staticModal">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd"
@@ -21,14 +21,21 @@
         <!-- Modal body -->
         <div class="p-6 space-y-6">
           @foreach ($vouchers as $voucher)
-            <span>{{ $voucher->name }}</span>
+            <div class="flex items-center justify-between">
+              <div class="flex flex-col border-b border-gray-300 pb-4">
+                <span class="font-bold text-lg">{{ $voucher->name }}</span>
+                <p>{{ $voucher->description }}</p>
+                <p class="text-sm text-gray-500">Discount : Rp. {{ number_format($voucher->discount) }}</p>
+                <p class="text-sm text-gray-500">Minimum : Rp. {{ number_format($voucher->minimal) }}</p>
+              </div>
+              <button type="button">Pilih</button>
+            </div>
           @endforeach
         </div>
         <!-- Modal footer -->
-        <div
-          class="flex items-center justify-end p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+        <div class="flex items-center justify-end p-6 space-x-2 border-t border-gray-200 rounded-b">
           <button type="button"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 w-full">Apply
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full">Pakai
           </button>
         </div>
       </div>

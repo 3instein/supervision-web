@@ -1,5 +1,5 @@
 <div>
-  <div class="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8" 
+  <div class="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8 relative" 
   x-data="{ open: @entangle('showVoucher') }">
     <!-- Voucher modal -->
     <div x-show="open">
