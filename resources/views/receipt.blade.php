@@ -19,8 +19,8 @@
             </div>
             <span class="mt-4"> Date & Time : </span> <span class="mt-4">{{ $transaction->created_at }}</span>
             <p class="mt-4"> Order No: {{ $transaction->order->id }}</p>
-            <p class="mt-4"> Cashier ID: {{ $transaction->order->user_id }}</p>
-            <p class="mt-4"> Cashier Name: {{ $transaction->order->user->name }}</p>
+            <p class="mt-4"> Cashier ID: {{ $transaction->user->id ?? 'TBA' }}</p>
+            <p class="mt-4"> Cashier Name: {{ $transaction->user->name ?? 'TBA'}}</p>
             <div class="row">
                 <table class="table">
                     <thead>
@@ -50,10 +50,16 @@
                         <td> </td>
                         <td class="text-right text-dark">
                             <h5><strong>Sub Total: </strong></h5>
+                            @if ($transaction->voucher)
+                            <p><strong>Discount: </strong></p>
+                            @endif
                             <p><strong>Tax (11%) : </strong></p>
                         </td>
                         <td class="text-center text-dark">
                             <h5> <strong><span id="subTotal">Rp. {{ number_format($subtotal) }}</strong></h5>
+                            @if ($transaction->voucher)
+                            <h5> <strong><span id="discount">Rp. {{ number_format($discount = $transaction->voucher->discount) }}</strong></h5>
+                            @endif
                             <h5> <strong><span id="taxAmount">Rp. {{ number_format($tax = $subtotal * 0.11) }}</strong>
                             </h5>
                         </td>
@@ -66,7 +72,11 @@
                             <h5><strong> Total: </strong></h5>
                         </td>
                         <td class="text-center text-danger">
+                            @if($transaction->voucher)
+                            <h5 id="totalPayment"><strong>Rp. {{ number_format($subtotal + $tax - $discount) }}</strong></h5>
+                            @else
                             <h5 id="totalPayment"><strong>Rp. {{ number_format($subtotal + $tax) }}</strong></h5>
+                            @endif
 
                         </td>
                     </tr>

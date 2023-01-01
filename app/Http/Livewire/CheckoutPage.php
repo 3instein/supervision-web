@@ -47,7 +47,7 @@ class CheckoutPage extends Component {
             'voucher_id' => $this->selectedVoucher->id ?? null,
         ]);
         $this->userOrder->delete();
-        return redirect()->route('home');
+        return redirect()->route('receipt');
     }
 
     public function render() {

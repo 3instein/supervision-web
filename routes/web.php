@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\TransactionController;
@@ -41,14 +42,6 @@ Route::get('/order', function () {
     return view('layouts.order');
 });
 
-//Route to Checkout Page (For testing)
-Route::get('/receipt', function () {
-    return view('receipt', [
-        'transaction' => Transaction::find(1)->first()
-    ]);
-});
-
-//Route to Checkout Page (For testing)
 Route::get('/offers', function () {
     return view('layouts.offers');
 });
@@ -59,6 +52,8 @@ Route::resource('vouchers', VoucherController::class);
 Route::get('/signin', function () {
     return view('layouts.sign-in');
 });
+
+Route::get('/receipt', [ReceiptController::class, 'index'])->name('receipt');
 
 Route::post('/signin', [CustomerController::class, 'login'])->name('customer.login');
 
