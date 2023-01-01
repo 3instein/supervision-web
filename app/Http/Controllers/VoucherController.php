@@ -14,7 +14,9 @@ class VoucherController extends Controller
      */
     public function index()
     {
-        //
+        return view('layouts.offers', [
+            'vouchers' => Voucher::all()
+        ]);
     }
 
     /**

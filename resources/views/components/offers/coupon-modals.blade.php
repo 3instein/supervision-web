@@ -115,11 +115,13 @@
             </svg>
         </div>
         <div class="flex flex-col md:flex-row md:max-w-xl rounded-lg ">
-            <div class="p-6 flex flex-col justify-start">
-                <h5 class="text-gray-900 text-xl font-medium mb-2">Limited Offer</h5>
-                <p class="text-gray-700 text-base mb-4">Ice tea Disc 2k</p>
-                <p class="text-gray-600 text-xs">Expiring in 4 hours</p>
-            </div>
+            @foreach ($vouchers as $voucher)
+                <div class="p-6 flex flex-col justify-start">
+                    <h5 class="text-gray-900 text-xl font-medium mb-2">{{ $voucher->name }}</h5>
+                    <p class="text-gray-700 text-base mb-4">{{ $voucher->description }}</p>
+                    <p class="text-gray-600 text-xs">Rp. {{ number_format($voucher->discount ?? 0) }}</p>
+                </div>
+            @endforeach
         </div>
     </div>
 </div>

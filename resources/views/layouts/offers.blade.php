@@ -33,7 +33,7 @@
 
         <!-- Page Content -->
         <main class="container px-4">
-            @component('components.offers.coupon-modals')
+            @component('components.offers.coupon-modals', ['vouchers' => $vouchers])
             @endcomponent
         </main>
     </div>
