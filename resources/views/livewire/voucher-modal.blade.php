@@ -21,22 +21,31 @@
         <!-- Modal body -->
         <div class="p-6 space-y-6">
           @foreach ($vouchers as $voucher)
-            <div class="flex items-center justify-between">
-              <div class="flex flex-col border-b border-gray-300 pb-4">
+            <div class="flex items-center justify-between border-b border-gray-300 pb-4">
+              <div class="flex flex-col">
                 <span class="font-bold text-lg">{{ $voucher->name }}</span>
                 <p>{{ $voucher->description }}</p>
                 <p class="text-sm text-gray-500">Discount : Rp. {{ number_format($voucher->discount) }}</p>
                 <p class="text-sm text-gray-500">Minimum : Rp. {{ number_format($voucher->minimal) }}</p>
               </div>
-              <button type="button" wire:click="selectVoucher({{ $voucher }})">Pilih</button>
+              @if ($selectedVoucher)
+                @if ($selectedVoucher->id == $voucher->id)
+                  <button type="button" wire:click="removeVoucher" @click="open = false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round" class="feather feather-check-circle">
+                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                      <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                  </button>
+                @endif
+              @else
+                <button type="button" wire:click="selectVoucher({{ $voucher }})" @click="open = false">
+                  Pilih
+                </button>
+              @endif
             </div>
           @endforeach
-        </div>
-        <!-- Modal footer -->
-        <div class="flex items-center justify-end p-6 space-x-2 border-t border-gray-200 rounded-b">
-          <button type="button"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full">Pakai
-          </button>
         </div>
       </div>
     </div>

@@ -13,7 +13,7 @@ class CheckoutPage extends Component {
     public $total = 0;
     public $showVoucher = false;
 
-    protected $listeners = ['sumSubtotal', 'getVoucher'];
+    protected $listeners = ['sumSubtotal', 'getVoucher', 'removeVoucher'];
 
     public function mount($userOrder) {
         $this->userOrder = $userOrder;
@@ -29,23 +29,34 @@ class CheckoutPage extends Component {
                 $this->subtotal += $menu->pivot->quantity * $menu->price;
                 $this->tax = $this->subtotal * 0.11;
                 $this->total = $this->subtotal + $this->tax;
+                if ($this->selectedVoucher) {
+                    $this->total = $this->total - $this->selectedVoucher->discount;
+                }
             }
         }
     }
 
     public function getVoucher(Voucher $voucher) {
         $this->selectedVoucher = $voucher;
+        $this->total = $this->total - $this->selectedVoucher->discount;
+    }
+
+    public function removeVoucher() {
+        $this->selectedVoucher = null;
+        $this->total = $this->subtotal + $this->tax;
     }
 
     public function checkout() {
-        if($this->selectedVoucher){
+        if ($this->selectedVoucher) {
             $this->total = $this->total - $this->selectedVoucher->discount;
         }
+
         $this->userOrder->transaction()->create([
             'order_id' => $this->userOrder->id,
             'total' => $this->total,
             'voucher_id' => $this->selectedVoucher->id ?? null,
         ]);
+
         $this->userOrder->delete();
         return redirect()->route('receipt');
     }

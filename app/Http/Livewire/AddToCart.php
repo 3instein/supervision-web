@@ -16,7 +16,7 @@ class AddToCart extends Component {
 
     protected $listeners = ['getMenu'];
 
-    public function mount($table){
+    public function mount($table) {
         $this->table = $table;
     }
 
@@ -26,7 +26,6 @@ class AddToCart extends Component {
     }
 
     public function addToCart(Table $table) {
-        // check if order id with customer id exist
         if ($table->orders->where('customer_id', 1)->count() == 0) {
             $order = Order::create([
                 'customer_id' => 1,
@@ -35,9 +34,9 @@ class AddToCart extends Component {
         } else {
             $order = $table->orders->where('customer_id', 1)->first();
         }
-        
+
         if ($this->quantity >= 1) {
-            if(!$order->menus->contains($this->menu->id)){
+            if (!$order->menus->contains($this->menu->id)) {
                 $order->menus()->attach($this->menu->id, ['quantity' => $this->quantity, 'note' => $this->note]);
                 flash('Berhasil menambahkan ' . $this->quantity . ' ' . $this->menu->name . ' ke keranjang.')->success()->livewire($this);
                 $this->quantity = 1;
