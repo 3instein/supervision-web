@@ -1,6 +1,5 @@
 <div>
-  <div class="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8 relative" 
-  x-data="{ open: @entangle('showVoucher') }">
+  <div class="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8 relative" x-data="{ open: @entangle('showVoucher') }">
     <!-- Voucher modal -->
     <div x-show="open">
       <livewire:voucher-modal />
@@ -23,10 +22,29 @@
     <section aria-labelledby="vouchers" @click="open = true">
       <div class="flex items-center justify-between bg-slate-100 mt-6 px-4 py-6 rounded-lg">
         <div class="flex items-center">
-          <i data-feather="gift"></i>
-          <span class="ml-2">Pakai voucher</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-gift">
+            <polyline points="20 12 20 22 4 22 4 12"></polyline>
+            <rect x="2" y="7" width="20" height="5"></rect>
+            <line x1="12" y1="22" x2="12" y2="7"></line>
+            <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+            <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+          </svg>
+          <span class="ml-2 text-sm">
+            @if ($selectedVoucher)
+              Berhasil menggunakan {{ $selectedVoucher->name }}
+            @else
+              Pakai voucher
+            @endif
+
+          </span>
         </div>
-        <i data-feather="chevron-right"></i>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="feather feather-chevron-right">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
       </div>
     </section>
 
@@ -40,6 +58,12 @@
           <dt class="text-sm text-gray-600">Subtotal</dt>
           <dd class="text-sm font-medium text-gray-900">Rp. {{ number_format($subtotal) }}</dd>
         </div>
+        @if ($selectedVoucher)
+          <div class="flex items-center justify-between">
+            <dt class="text-sm text-gray-600">Discount</dt>
+            <dd class="text-sm font-medium text-gray-900">- Rp. {{ number_format($selectedVoucher->discount ?? 0) }}</dd>
+          </div>
+        @endif
         <div class="border-t border-gray-200 pt-4 flex items-center justify-between">
           <dt class="flex text-sm text-gray-600">
             <span>Tax estimate</span>
@@ -56,6 +80,7 @@
           </dt>
           <dd class="text-sm font-medium text-gray-900">Rp. {{ number_format($tax) }}</dd>
         </div>
+
         <div class="border-t border-gray-200 pt-4 flex items-center justify-between">
           <dt class="text-base font-extrabold text-gray-900">Order total</dt>
           <dd class="text-sm font-extrabold text-gray-900">Rp. {{ number_format($total) }}</dd>
