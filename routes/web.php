@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\TransactionController;
 
@@ -51,6 +52,8 @@ Route::get('/receipt', function () {
 Route::get('/offers', function () {
     return view('layouts.offers');
 });
+
+Route::resource('vouchers', VoucherController::class);
 
 // Route to Order Page (For testing)
 Route::get('/signin', function () {

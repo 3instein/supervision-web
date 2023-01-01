@@ -1,5 +1,11 @@
 <div>
-  <div class="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+  <div class="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8 relative" 
+  x-data="{ open: @entangle('showVoucher') }">
+    <!-- Voucher modal -->
+    <div x-show="open">
+      <livewire:voucher-modal />
+    </div>
+
     <h1 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl pb-4">Keranjang</h1>
     <section aria-labelledby="cart-heading" class="lg:col-span-7">
       <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>
@@ -13,9 +19,20 @@
       </ul>
     </section>
 
+    <!-- Voucher -->
+    <section aria-labelledby="vouchers" @click="open = true">
+      <div class="flex items-center justify-between bg-slate-100 mt-6 px-4 py-6 rounded-lg">
+        <div class="flex items-center">
+          <i data-feather="gift"></i>
+          <span class="ml-2">Pakai voucher</span>
+        </div>
+        <i data-feather="chevron-right"></i>
+      </div>
+    </section>
+
     <!-- Order summary -->
     <section aria-labelledby="summary-heading"
-      class="mt-6 bg-gray-100 rounded-lg px-4 py-6 sm:p-6 lg:p-8 lg:mt-0 lg:col-span-5">
+      class="mt-6 bg-slate-100 rounded-lg px-4 py-6 sm:p-6 lg:p-8 lg:mt-0 lg:col-span-5">
       <h2 id="summary-heading" class="text-lg font-medium text-gray-900">Order summary</h2>
 
       <dl class="mt-6 space-y-4">
@@ -47,7 +64,8 @@
 
       <div class="mt-6">
         <button type="button"
-          class="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500" wire:click="checkout">Checkout</button>
+          class="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
+          wire:click="checkout">Checkout</button>
       </div>
     </section>
   </div>
