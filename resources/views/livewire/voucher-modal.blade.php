@@ -28,7 +28,7 @@
                 <p class="text-sm text-gray-500">Discount : Rp. {{ number_format($voucher->discount) }}</p>
                 <p class="text-sm text-gray-500">Minimum : Rp. {{ number_format($voucher->minimal) }}</p>
               </div>
-              <button type="button">Pilih</button>
+              <button type="button" wire:click="selectVoucher({{ $voucher }})">Pilih</button>
             </div>
           @endforeach
         </div>

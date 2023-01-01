@@ -9,7 +9,7 @@
     <div class="mt-4 mx-4">
       <div class="flex justify-between items-center mb-2">
         <p class="font-extrabold">{{ $menu->name ?? '' }}</p>
-        <p class=font-extrabold">{{ 'Rp. ' . number_format($menu->price ?? 0) }}</p>
+        <p class="font-extrabold">{{ 'Rp. ' . number_format($menu->price ?? 0) }}</p>
       </div>
       <p class="font-light mb-4">{{ $menu->description ?? '' }}</p>
       <textarea class="w-full resize-none placeholder:text-xs border-gray-400 rounded-md text-xs mb-4"
