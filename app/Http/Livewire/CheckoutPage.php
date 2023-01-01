@@ -9,6 +9,7 @@ class CheckoutPage extends Component {
     public $subtotal = 0;
     public $tax = 0;
     public $total = 0;
+    public $showVoucher = false;
 
     protected $listeners = ['sumSubtotal'];
 
@@ -30,7 +31,7 @@ class CheckoutPage extends Component {
         }
     }
 
-    public function checkout(){
+    public function checkout() {
         $this->userOrder->transaction()->create([
             'order_id' => $this->userOrder->id,
             'total' => $this->total,
