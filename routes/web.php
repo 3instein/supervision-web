@@ -24,52 +24,40 @@ use App\Http\Controllers\TransactionController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-
-
-Route::get('/cart', [CartController::class, 'index'])->name('cart');
-
-Route::get('/scan', function () {
-    return view('scan');
-});
-
-Route::post('/scan', [TableController::class, 'scan'])->name('scan');
-
-Route::resource('tables', TableController::class);
-
-// Route to Order Page (For testing)
-Route::get('/order', function () {
-    return view('layouts.order');
-});
-
-Route::get('/offers', function () {
-    return view('layouts.offers');
-});
-
-Route::resource('vouchers', VoucherController::class);
-
-// Route to Order Page (For testing)
-Route::get('/signin', function () {
-    return view('layouts.sign-in');
-});
-
-Route::get('/receipt', [ReceiptController::class, 'index'])->name('receipt');
-
+// Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [CustomerController::class, 'create'])->name('customer.create');
 Route::post('/signin', [CustomerController::class, 'login'])->name('customer.login');
 
-Route::resource('menus', MenuController::class)->except(['index', 'show']);
-Route::get('/menus/{table}', [MenuController::class, 'index'])->name('menus.index');
-
-// Route::resource('transactions', TransactionController::class);
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/scan', [HomeController::class, 'index'])->name('scan.create');
+Route::post('/scan', [TableController::class, 'scan'])->name('scan');
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/menus/{table}', [MenuController::class, 'index'])->name('menus.index');
+
+    Route::get('/cart', [CartController::class, 'index'])->name('cart');
+    Route::get('/order', function () {
+        return view('layouts.order');
+    });
+
+    Route::get('/offers', function () {
+        return view('layouts.offers');
+    });
+
+    Route::resource('vouchers', VoucherController::class);
+
+    Route::get('/receipt', [ReceiptController::class, 'index'])->name('receipt');
+
+
+    Route::resource('menus', MenuController::class)->except(['index', 'show']);
+    Route::resource('tables', TableController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__ . '/auth.php';

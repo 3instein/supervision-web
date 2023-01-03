@@ -6,15 +6,13 @@ use App\Models\Menu;
 use App\Models\Table;
 use Illuminate\Http\Request;
 
-class MenuController extends Controller
-{
+class MenuController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Table $table)
-    {
+    public function index(Table $table) {
         return view('welcome', [
             'menus' => Menu::where('store_id', $table->store_id)->get(),
             'table' => $table
@@ -26,8 +24,7 @@ class MenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -37,8 +34,7 @@ class MenuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
@@ -48,8 +44,7 @@ class MenuController extends Controller
      * @param  \App\Models\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function show(Menu $menu)
-    {
+    public function show(Menu $menu) {
         //
     }
 
@@ -59,8 +54,7 @@ class MenuController extends Controller
      * @param  \App\Models\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function edit(Menu $menu)
-    {
+    public function edit(Menu $menu) {
         //
     }
 
@@ -71,8 +65,7 @@ class MenuController extends Controller
      * @param  \App\Models\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Menu $menu)
-    {
+    public function update(Request $request, Menu $menu) {
         //
     }
 
@@ -82,8 +75,7 @@ class MenuController extends Controller
      * @param  \App\Models\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Menu $menu)
-    {
+    public function destroy(Menu $menu) {
         //
     }
 }
