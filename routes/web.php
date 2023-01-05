@@ -24,12 +24,8 @@ use App\Http\Controllers\TransactionController;
 |
 */
 
-// Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/', [CustomerController::class, 'create'])->name('customer.create');
-Route::post('/signin', [CustomerController::class, 'login'])->name('customer.login');
-
-Route::get('/scan', [HomeController::class, 'index'])->name('scan.create');
-Route::post('/scan', [TableController::class, 'scan'])->name('scan');
+Route::get('/', [HomeController::class, 'index'])->name('scan.index');
+Route::post('/', [TableController::class, 'scan'])->name('scan');
 
 Route::middleware('auth')->group(function () {
 
