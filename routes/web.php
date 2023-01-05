@@ -23,11 +23,10 @@ use App\Http\Controllers\TransactionController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', [HomeController::class, 'index'])->name('scan.index')->middleware('auth');
 
-Route::get('/', [HomeController::class, 'index'])->name('scan.index');
-Route::post('/', [TableController::class, 'scan'])->name('scan');
-
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth'])->group(function () {
+    Route::post('/', [TableController::class, 'scan'])->name('scan');
 
     Route::get('/menus/{table}', [MenuController::class, 'index'])->name('menus.index');
 
@@ -49,7 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('tables', TableController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy'); 
 });
 
 Route::get('/dashboard', function () {

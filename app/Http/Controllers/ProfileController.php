@@ -18,7 +18,7 @@ class ProfileController extends Controller
     public function edit(Request $request)
     {
         return view('profile.edit', [
-            'user' => auth()->guard('customer')->user(),
+            'user' => $request->user(),
         ]);
     }
 
