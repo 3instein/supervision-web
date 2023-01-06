@@ -10,11 +10,19 @@
       <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>
 
       <ul role="list" class="border-t border-b border-gray-200 divide-y divide-gray-200">
-        @isset($userOrder)
+        @if(isset($userOrder))
           @foreach ($userOrder->menus as $menu)
             <livewire:card-checkout :menu="$menu" :key="$menu->id" />
           @endforeach
-        @endisset
+        @else
+          <li class="py-6 flex justify-center">
+            <div class="text-center">
+              <p class="text-sm text-gray-500">
+                Keranjangmu kosong
+              </p>
+            </div>
+          </li>
+        @endif
       </ul>
     </section>
     <div class="mt-6">
