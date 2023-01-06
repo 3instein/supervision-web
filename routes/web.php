@@ -31,13 +31,6 @@ Route::middleware(['auth:customer'])->group(function () {
     Route::get('/menus/{table}', [MenuController::class, 'index'])->name('menus.index');
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
-    Route::get('/order', function () {
-        return view('layouts.order');
-    });
-
-    Route::get('/offers', function () {
-        return view('layouts.offers');
-    });
 
     Route::resource('vouchers', VoucherController::class);
 
