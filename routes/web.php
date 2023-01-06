@@ -23,9 +23,9 @@ use App\Http\Controllers\TransactionController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [HomeController::class, 'index'])->name('scan.index')->middleware('auth');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth:customer'])->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('scan.index');
     Route::post('/', [TableController::class, 'scan'])->name('scan');
 
     Route::get('/menus/{table}', [MenuController::class, 'index'])->name('menus.index');

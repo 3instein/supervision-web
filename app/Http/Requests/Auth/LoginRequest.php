@@ -42,7 +42,7 @@ class LoginRequest extends FormRequest
      * @throws \Illuminate\Validation\ValidationException
      */
     public function authenticate()
-    {
+{
         $this->ensureIsNotRateLimited();
 
         if (!Auth::guard('customer')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
