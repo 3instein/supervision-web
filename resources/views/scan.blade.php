@@ -20,7 +20,7 @@
     <script>
       function onScanSuccess(decodedText, decodedResult) {
         // Handle on success condition with the decoded text or result.
-        var url = 'http://supervision-web.test/scan';
+        var url = 'http://supervision-web.test/';
         var form = $('<form action="' + url + '" method="POST" id="barcode-form">' +
           '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
           '<input type="text" name="barcode" value="' + decodedText + '" />' +

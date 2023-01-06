@@ -21,4 +21,8 @@ class Table extends Model
     public function orders() {
         return $this->hasMany(Order::class);
     }
+
+    public function getRouteKeyName() {
+        return 'barcode';
+    }
 }
