@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Customer;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -140,6 +141,11 @@ class OrderAPIController extends Controller {
     }
 
     public function confirm(Order $order) {
+        $customer = Customer::find($order->customer_id);
+        $customer->update([
+            'points' => $customer->points + ($order->transaction->total * 0.01)
+        ]);
+
         $order->transaction->update([
             'confirmed_by' => Auth::id(),
             'status' => 'Paid',

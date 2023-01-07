@@ -20,4 +20,9 @@ class Voucher extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public function tier()
+    {
+        return $this->belongsTo(Tier::class);
+    }
 }

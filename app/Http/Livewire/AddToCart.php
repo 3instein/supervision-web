@@ -6,6 +6,7 @@ use App\Models\Menu;
 use App\Models\Order;
 use App\Models\Table;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class AddToCart extends Component {
     public $menu;
@@ -26,7 +27,7 @@ class AddToCart extends Component {
     }
 
     public function addToCart(Table $table) {
-        if ($table->orders->where('customer_id', 1)->count() == 0) {
+        if ($table->orders->where('customer_id', Auth::id())->count() == 0) {
             $order = Order::create([
                 'customer_id' => 1,
                 'table_id' => $table->id,

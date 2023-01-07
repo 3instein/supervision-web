@@ -21,7 +21,7 @@
         <button class="text-xl ml-4" type="button" wire:click.defer="increment">+</button>
       </div>
     </div>
-    <button class="w-full absolute bottom-0 left-0 bg-gray-300 py-3 font-extrabold" wire:click="addToCart({{ $table }})"
+    <button class="w-full absolute bottom-0 left-0 bg-gray-300 py-3 font-extrabold" wire:click="addToCart({{ $table->barcode }})"
       @click="open = false">Tambah</button>
   </div>
 </div>
