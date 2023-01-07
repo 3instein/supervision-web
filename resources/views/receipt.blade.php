@@ -90,7 +90,7 @@
               </a> --}}
                         </td>
                         <td class="text-center">
-                            <a href="{{ route('home') }}" class="btn btn-success">
+                            <a href="{{ route('scan.index') }}" class="btn btn-success">
                                 <span class="bi bi-back"></span> Back to Menu
                             </a>
                         </td>
