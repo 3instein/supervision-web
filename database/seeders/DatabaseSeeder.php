@@ -28,19 +28,19 @@ class DatabaseSeeder extends Seeder {
             'name' => 'Bronze',
             'description' => 'Bronze Tier',
             'image' => 'bronze.png',
-            'required_points' => 5000,
+            'points' => 5000,
         ]);
         Tier::create([
             'name' => 'Silver',
             'description' => 'Silver Tier',
             'image' => 'silver.png',
-            'required_points' => 10000,
+            'points' => 10000,
         ]);
         Tier::create([
             'name' => 'Gold',
             'description' => 'Gold Tier',
             'image' => 'gold.png',
-            'required_points' => 15000,
+            'points' => 15000,
         ]);
         Store::create([
             'name' => 'Test Store',
